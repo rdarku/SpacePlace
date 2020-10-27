@@ -9,7 +9,6 @@ namespace SpacePlace.Data
         public int Id { get; set; }
         [Required]
         public int SpaceOwnerId { get; set; }
-
         [ForeignKey(nameof(SpaceOwnerId))]
         public virtual ApplicationUser Owner { get; set; }
     }
