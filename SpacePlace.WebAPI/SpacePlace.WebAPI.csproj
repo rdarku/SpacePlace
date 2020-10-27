@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SpaceOwnerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -324,9 +325,18 @@
       <Name>SpacePlace.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpacePlace.Services\SpacePlace.Services.csproj">
+
       <Project>{9EFA358E-B1A3-417E-BE74-A5826F875465}</Project>
       <Name>SpacePlace.Services</Name>
     </ProjectReference>
+
+      <Project>{9efa358e-b1a3-417e-be74-a5826f875465}</Project>
+      <Name>SpacePlace.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
