@@ -213,6 +213,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -317,6 +318,14 @@
     <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">
       <Project>{3D79EAC5-6C45-457F-8E5C-9EA9E4490C35}</Project>
       <Name>SpacePlace.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpacePlace.Models\SpacePlace.Models.csproj">
+      <Project>{F90954ED-1540-4274-BC85-3D42829ABA96}</Project>
+      <Name>SpacePlace.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpacePlace.Services\SpacePlace.Services.csproj">
+      <Project>{9EFA358E-B1A3-417E-BE74-A5826F875465}</Project>
+      <Name>SpacePlace.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
