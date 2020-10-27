@@ -108,6 +108,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpacePlace.WebAPI\SpacePlace.WebAPI.csproj">
+      <Project>{CB3D0599-8AB7-476D-AB6C-1CCB266EB4FD}</Project>
+      <Name>SpacePlace.WebAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
