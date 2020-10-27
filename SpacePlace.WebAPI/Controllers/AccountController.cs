@@ -63,7 +63,9 @@ namespace SpacePlace.WebAPI.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                FullName = User.Identity.Name,
+                Age = 6
             };
         }
 
