@@ -72,13 +72,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-
-    <Compile Include="Amenity.cs" />
-
-    <Compile Include="SpaceOwner.cs" />
-
+	  <Compile Include="Amenity.cs" />
+	<Compile Include="Category.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpaceOwner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

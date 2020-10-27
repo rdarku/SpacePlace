@@ -40,12 +40,11 @@ namespace SpacePlace.Data
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public DbSet<SpaceOwner> SpaceOwners { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
 
         public DbSet<Amenity> Amenities { get; set; }
-
-
-        public DbSet<SpaceOwner> SpaceOwners { get; set; }
 
         public static ApplicationDbContext Create()
         {
