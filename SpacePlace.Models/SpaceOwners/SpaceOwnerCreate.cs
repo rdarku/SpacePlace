@@ -1,6 +1,4 @@
-﻿using SpacePlace.Data;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SpacePlace.Models.SpaceOwner
 {
@@ -8,7 +6,7 @@ namespace SpacePlace.Models.SpaceOwner
     {
   
         [Required]
-        public int SpaceOwnerId { get; set; }
+        public string SpaceOwnerId { get; set; }
 
     }
 }

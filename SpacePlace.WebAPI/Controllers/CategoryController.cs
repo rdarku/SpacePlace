@@ -10,6 +10,7 @@ using System.Web.Razor.Parser;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class CategoryController : ApiController
     {
         private readonly CategoryService _service = new CategoryService();
@@ -17,7 +18,7 @@ namespace SpacePlace.WebAPI.Controllers
         // post -- create
         public IHttpActionResult Post(CategoryCreate model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (_service.CreateCategory(model))
                     return Ok();
