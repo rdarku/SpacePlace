@@ -213,8 +213,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-	  <Compile Include="Controllers\CategoryController.cs" />
-	  <Compile Include="Controllers\AmenityController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SpaceOwnerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -317,22 +317,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">
-      <Project>{3D79EAC5-6C45-457F-8E5C-9EA9E4490C35}</Project>
-      <Name>SpacePlace.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpacePlace.Models\SpacePlace.Models.csproj">
-      <Project>{F90954ED-1540-4274-BC85-3D42829ABA96}</Project>
-      <Name>SpacePlace.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SpacePlace.Services\SpacePlace.Services.csproj">
-      <Project>{9efa358e-b1a3-417e-be74-a5826f875465}</Project>
-      <Name>SpacePlace.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
