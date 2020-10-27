@@ -72,7 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
+	  <Compile Include="SpaceOwner.cs" />
+	  <Compile Include="Category.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

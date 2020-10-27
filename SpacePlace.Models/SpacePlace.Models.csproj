@@ -45,6 +45,13 @@
     <Compile Include="Categories\CategoryCreate.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">
+      <Project>{3D79EAC5-6C45-457F-8E5C-9EA9E4490C35}</Project>
+      <Name>SpacePlace.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
