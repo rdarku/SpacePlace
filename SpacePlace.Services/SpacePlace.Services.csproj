@@ -54,7 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryService.cs" />
+	  <Compile Include="CategoryService.cs" />
+	  <Compile Include="AmenityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpaceOwnerService.cs" />
   </ItemGroup>
