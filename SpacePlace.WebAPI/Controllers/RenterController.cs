@@ -1,4 +1,4 @@
-﻿using SpacePlace.Models.SpaceOwner;
+﻿using SpacePlace.Models;
 using SpacePlace.Services;
 using System;
 using System.Collections.Generic;
@@ -10,16 +10,16 @@ using System.Web.Http;
 namespace SpacePlace.WebAPI.Controllers
 {
     [Authorize]
-    public class SpaceOwnerController : ApiController
+    public class RenterController : ApiController
     {
-        private readonly SpaceOwnerService _service = new SpaceOwnerService();
-        
+        private readonly RenterService _service = new RenterService();
+
         // post -- create
-        public IHttpActionResult Post(SpaceOwnerCreate model)
+        public IHttpActionResult Post(RenterCreate model)
         {
             if (ModelState.IsValid)
             {
-                if (_service.CreateSpaceOwner(model))
+                if (_service.CreateRenter(model))
                     return Ok();
                 return InternalServerError();
             }
