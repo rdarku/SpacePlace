@@ -1,5 +1,6 @@
 ﻿using SpacePlace.Data;
 using SpacePlace.Models.SpaceOwner;
+using SpacePlace.Models.SpaceOwners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,21 @@ namespace SpacePlace.Services
         }
 
         //read all
+
+        public IEnumerable<SpaceOwnerListItem> GetAllOwners()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return ctx.SpaceOwners
+                    .Select(o => new SpaceOwnerListItem
+                    {
+                        Id = o.Id,
+                        SpaceOwner = o.Owner.FullName,
+                        CreatedAt = o.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
 
         //read by ID
 
