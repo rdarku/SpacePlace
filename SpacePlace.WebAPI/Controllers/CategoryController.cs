@@ -44,7 +44,21 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         // Put -- update
+        public IHttpActionResult Put([FromBody] CategoryEdit model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (_service.UpdateCategory(model))
+                return Ok();
+
+            return BadRequest();
+        }
 
         // delete -- remove
+        public IHttpActionResult Delete([FromUri] int id)
+        {
+            return Ok(_service.DeleteCategory(id));
+        }
     }
 }

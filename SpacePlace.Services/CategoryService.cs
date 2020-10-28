@@ -109,5 +109,29 @@ namespace SpacePlace.Services
         }
 
         // delete
+        public bool DeleteCategory(int id)
+        {
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var categoryEntity = ctx.Categories.Where(c => c.Id == id)
+                        .FirstOrDefault();
+
+                    if (categoryEntity == null)
+                        return false;
+
+                    // make sure this category is not linked to any space before deleting
+                    ctx.Categories.Remove(categoryEntity);
+
+                    return ctx.SaveChanges() == 1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }
