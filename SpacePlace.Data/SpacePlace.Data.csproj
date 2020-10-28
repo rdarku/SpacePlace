@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Amenity.cs" />
+    <Compile Include="Booking.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Renter.cs" />

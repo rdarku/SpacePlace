@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Amenities\AmenityEdit.cs" />
+    <Compile Include="Bookings\BookingCreate.cs" />
+    <Compile Include="Bookings\BookingDetails.cs" />
+    <Compile Include="Bookings\BookingEdit.cs" />
+    <Compile Include="Bookings\BookingListItem.cs" />
     <Compile Include="Categories\CategoryEdit.cs" />
     <Compile Include="Categories\CategoryListItem.cs" />
     <Compile Include="Amenities\AmenityListItem.cs" />
