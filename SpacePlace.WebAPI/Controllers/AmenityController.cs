@@ -31,6 +31,10 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         //Get -- By ID
+        public IHttpActionResult Get([FromUri] int id)
+        {
+            return Ok(_service.GetAmenityById(id));
+        }
 
         //Put -- Update
 
