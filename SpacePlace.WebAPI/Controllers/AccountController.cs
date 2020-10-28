@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SpacePlace.Data;
+using SpacePlace.Data.Extensions;
 using SpacePlace.WebAPI.Models;
 using SpacePlace.WebAPI.Providers;
 using SpacePlace.WebAPI.Results;
@@ -64,8 +65,8 @@ namespace SpacePlace.WebAPI.Controllers
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
-                FullName = User.Identity.Name,
-                Age = 6
+                FullName = User.Identity.GetFullName(),
+                Age = User.Identity.GetAge()
             };
         }
 

@@ -15,7 +15,8 @@ namespace SpacePlace.Services
         {
             var newSpaceOwner = new SpaceOwner()
             {
-                SpaceOwnerId = model.SpaceOwnerId
+                SpaceOwnerId = model.SpaceOwnerId,
+                CreatedAt = DateTimeOffset.Now
             };
 
             try

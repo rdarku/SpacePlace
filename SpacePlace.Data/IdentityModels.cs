@@ -13,8 +13,10 @@ namespace SpacePlace.Data
     {
         [Required]
         public string FullName { get; set; }
+
         [Required]
         public DateTime DOB { get; set; }
+
         public int Age
         {
             get
@@ -25,11 +27,16 @@ namespace SpacePlace.Data
                 return yearsOfAge;
             }
         }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim(nameof(FullName), FullName.ToString()));
+            userIdentity.AddClaim(new Claim(nameof(DOB), DOB.ToString()));
+            userIdentity.AddClaim(new Claim(nameof(Age), Age.ToString()));
+
             return userIdentity;
         }
     }
