@@ -37,6 +37,21 @@ namespace SpacePlace.Services
         }
 
         //read all
+        public IEnumerable<AmenityListItem> GetAllAmenities()
+        {
+            using(var ctx = new ApplicationDbContext())
+            {
+                return ctx.Amenities
+                    .Select(a => new AmenityListItem
+                    {
+                        AmenityId = a.Id,
+                        Name = a.Name,
+                        Description = a.Description,
+                        CreatedAt = a.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
 
         //read by ID
 

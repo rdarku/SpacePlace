@@ -25,6 +25,10 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         //Get -- <List>
+        public IHttpActionResult Get()
+        {
+            return Ok(_service.GetAllAmenities());
+        }
 
         //Get -- By ID
 
