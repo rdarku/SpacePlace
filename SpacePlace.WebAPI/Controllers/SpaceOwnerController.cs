@@ -1,4 +1,5 @@
-﻿using SpacePlace.Models.SpaceOwner;
+﻿using Microsoft.AspNet.Identity;
+using SpacePlace.Models.SpaceOwner;
 using SpacePlace.Services;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,10 @@ namespace SpacePlace.WebAPI.Controllers
         private readonly SpaceOwnerService _service = new SpaceOwnerService();
         
         // post -- create
-        public IHttpActionResult Post(SpaceOwnerCreate model)
+        public IHttpActionResult Post()
         {
+            SpaceOwnerCreate model = new SpaceOwnerCreate { SpaceOwnerId = User.Identity.GetUserId() };
+
             if (ModelState.IsValid)
             {
                 if (_service.CreateSpaceOwner(model))

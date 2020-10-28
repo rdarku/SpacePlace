@@ -1,4 +1,5 @@
-﻿using SpacePlace.Models;
+﻿using Microsoft.AspNet.Identity;
+using SpacePlace.Models;
 using SpacePlace.Services;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,10 @@ namespace SpacePlace.WebAPI.Controllers
         private readonly RenterService _service = new RenterService();
 
         // post -- create
-        public IHttpActionResult Post(RenterCreate model)
+        public IHttpActionResult Post()
         {
+            RenterCreate model = new RenterCreate { RenterID = User.Identity.GetUserId() };
+
             if (ModelState.IsValid)
             {
                 if (_service.CreateRenter(model))
