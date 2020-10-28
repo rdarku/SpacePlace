@@ -59,6 +59,10 @@ namespace SpacePlace.Data
 
         public DbSet<SpaceAmenity> SpaceAmenities { get; set; }
 
+
+
+        public DbSet<Booking> Bookings { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
