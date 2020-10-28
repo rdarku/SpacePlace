@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="CategoryService.cs" />
     <Compile Include="AmenityService.cs" />
+    <Compile Include="RatingService.cs" />
     <Compile Include="RenterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpaceOwnerService.cs" />

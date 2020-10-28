@@ -48,6 +48,9 @@
     <Compile Include="Amenities\AmenityListItem.cs" />
     <Compile Include="Categories\CategoryCreate.cs" />
     <Compile Include="Amenities\AmenityCreate.cs" />
+    <Compile Include="Ratings\RatingCreate.cs" />
+    <Compile Include="Ratings\RatingDetails.cs" />
+    <Compile Include="Ratings\RatingListItem.cs" />
     <Compile Include="Renters\RenterCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renters\RenterListItem.cs" />
