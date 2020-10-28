@@ -55,6 +55,8 @@ namespace SpacePlace.Data
 
         public DbSet<Renter> Renters { get; set; }
 
+        public DbSet<Space> Spaces { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
