@@ -37,7 +37,22 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         //Put -- Update
+        public IHttpActionResult Put([FromBody] AmenityEdit model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (_service.UpdateAmenity(model))
+                return Ok();
+
+            return BadRequest();
+        }
+
 
         //Delete -- Remove
+        public IHttpActionResult Delete([FromUri] int id)
+        {
+            return Ok(_service.DeleteAmenity(id));
+        }
     }
 }

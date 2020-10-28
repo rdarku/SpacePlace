@@ -110,5 +110,29 @@ namespace SpacePlace.Services
         }
 
         //delete
+        public bool DeleteAmenity(int id)
+        {
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var amenityEntity = ctx.Amenities.Where(a => a.Id == id)
+                        .FirstOrDefault();
+
+                    if (amenityEntity == null)
+                        return false;
+
+                    //check to make sure amenity is not linked to SpaceAmenities before deleting
+                    ctx.Amenities.Remove(amenityEntity);
+
+                    return ctx.SaveChanges() == 1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }
