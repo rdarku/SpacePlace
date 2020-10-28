@@ -38,6 +38,10 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         // get -- by Id
+        public IHttpActionResult Get([FromUri] int id)
+        {
+            return Ok(_service.GetCategoryById(id));
+        }
 
         // Put -- update
 

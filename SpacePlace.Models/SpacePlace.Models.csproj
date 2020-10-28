@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Amenities\AmenityEdit.cs" />
+    <Compile Include="Categories\CategoryEdit.cs" />
     <Compile Include="Categories\CategoryListItem.cs" />
     <Compile Include="Amenities\AmenityListItem.cs" />
     <Compile Include="Categories\CategoryCreate.cs" />

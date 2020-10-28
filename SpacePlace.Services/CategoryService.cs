@@ -54,8 +54,59 @@ namespace SpacePlace.Services
         }
 
         // read by ID
+        public CategoryListItem GetCategoryById(int id)
+        {
+            try
+            {
+                using(var ctx = new ApplicationDbContext())
+                {
+                    var foundCategory = ctx.Categories.Where(c => c.Id == id)
+                        .FirstOrDefault();
+
+                    return (foundCategory != null) ?
+                        new CategoryListItem() { 
+                            CategoryId = foundCategory.Id,
+                            Name = foundCategory.Name,
+                            Description = foundCategory.Description,
+                            CreatedAt = foundCategory.CreatedAt
+                        }
+                        : null;
+
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
 
         // update
+        public bool UpdateCategory(CategoryEdit model)
+        {
+            try
+            {
+                using(var ctx = new ApplicationDbContext())
+                {
+                    var categoryEntity = ctx.Categories.Where(c => c.Id == model.Id)
+                        .FirstOrDefault();
+
+                    if (categoryEntity == null)
+                        return false;
+
+                    categoryEntity.Name = model.Name;
+                    categoryEntity.Description = model.Description;
+                    categoryEntity.ModifiedAt = DateTimeOffset.UtcNow;
+
+                    return ctx.SaveChanges() == 1;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
 
         // delete
     }
