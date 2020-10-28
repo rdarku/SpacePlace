@@ -1,8 +1,10 @@
 ﻿using SpacePlace.Data;
 using SpacePlace.Models;
+using SpacePlace.Models.Renters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,10 +34,24 @@ namespace SpacePlace.Services
                 Console.WriteLine(e.Message);
                 return false;
             }
-
         }
 
         //read all
+        public IEnumerable<RenterListItem> GetAllRenters()
+        {
+            using (var ctx = new ApplicationDbContext())
+            { 
+                return ctx.Renters
+                    .Select(c => new RenterListItem
+                    {
+                        Id = c.Id,
+                        Renter = c.RenterUser.FullName,
+                        CreatedAt = c.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
+
 
         //read by id
 

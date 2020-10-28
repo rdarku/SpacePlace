@@ -42,10 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	  <Compile Include="Categories\CategoryCreate.cs" />
-	  <Compile Include="Amenities\AmenityCreate.cs" />
-	  <Compile Include="Renters\RenterCreate.cs" />
+    <Compile Include="Categories\CategoryCreate.cs" />
+    <Compile Include="Amenities\AmenityCreate.cs" />
+    <Compile Include="Renters\RenterCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renters\RenterListItem.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
   </ItemGroup>
   <ItemGroup>

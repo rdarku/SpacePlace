@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Provider;
 using SpacePlace.Models;
+using SpacePlace.Models.Renters;
 using SpacePlace.Services;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,10 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         //get -- list
+        public IHttpActionResult Get()
+        {
+            return Ok(_service.GetAllRenters());
+        }
 
         //get -- by ID
 
