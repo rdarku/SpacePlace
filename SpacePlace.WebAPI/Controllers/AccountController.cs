@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using SpacePlace.Data;
+using SpacePlace.Data.Extensions;
 using SpacePlace.WebAPI.Models;
 using SpacePlace.WebAPI.Providers;
 using SpacePlace.WebAPI.Results;
@@ -63,7 +64,9 @@ namespace SpacePlace.WebAPI.Controllers
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                FullName = User.Identity.GetFullName(),
+                Age = User.Identity.GetAge()
             };
         }
 
@@ -329,7 +332,7 @@ namespace SpacePlace.WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FullName = model.FullName, DOB = model.DOB };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
