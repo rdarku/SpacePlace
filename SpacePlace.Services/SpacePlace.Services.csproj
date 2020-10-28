@@ -65,10 +65,6 @@
       <Project>{3D79EAC5-6C45-457F-8E5C-9EA9E4490C35}</Project>
       <Name>SpacePlace.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SpacePlace.Models\SpacePlace.Models.csproj">
-      <Project>{F90954ED-1540-4274-BC85-3D42829ABA96}</Project>
-      <Name>SpacePlace.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
