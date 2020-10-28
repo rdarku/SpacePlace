@@ -14,7 +14,7 @@ namespace SpacePlace.Data
         public DateTimeOffset ModifiedAt { get; set; }
 
         [Required]
-        public int RenterId { get; set; }
+        public string RenterId { get; set; }
 
         [ForeignKey(nameof(RenterId))]
         public virtual ApplicationUser RenterUser { get; set; }
