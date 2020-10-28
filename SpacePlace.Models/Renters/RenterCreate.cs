@@ -10,6 +10,6 @@ namespace SpacePlace.Models
     public class RenterCreate
     {
         [Required]
-        public int RenterID { get; set; }
+        public string RenterID { get; set; }
     }
 }
