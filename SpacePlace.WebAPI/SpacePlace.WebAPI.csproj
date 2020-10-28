@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\AmenityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RenterController.cs" />
     <Compile Include="Controllers\SpaceAmenityController.cs" />
     <Compile Include="Controllers\SpaceController.cs" />

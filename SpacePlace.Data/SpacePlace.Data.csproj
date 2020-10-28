@@ -76,6 +76,7 @@
     <Compile Include="Booking.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Rating.cs" />
     <Compile Include="Renter.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
