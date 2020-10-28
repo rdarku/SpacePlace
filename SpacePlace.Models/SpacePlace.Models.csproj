@@ -53,6 +53,10 @@
     <Compile Include="Renters\RenterListItem.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerListItem.cs" />
+    <Compile Include="Spaces\SpaceCreate.cs" />
+    <Compile Include="Spaces\SpaceDetails.cs" />
+    <Compile Include="Spaces\SpaceEdit.cs" />
+    <Compile Include="Spaces\SpaceListItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">

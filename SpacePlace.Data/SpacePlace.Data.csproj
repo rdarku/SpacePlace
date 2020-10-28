@@ -78,6 +78,7 @@
     <Compile Include="Renter.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Space.cs" />
     <Compile Include="SpaceOwner.cs" />
   </ItemGroup>
   <ItemGroup>
