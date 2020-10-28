@@ -57,6 +57,12 @@ namespace SpacePlace.Data
 
         public DbSet<Space> Spaces { get; set; }
 
+        public DbSet<SpaceAmenity> SpaceAmenities { get; set; }
+
+
+
+        public DbSet<Booking> Bookings { get; set; }
+
 
         public DbSet<Rating> Ratings { get; set; }
 

@@ -218,6 +218,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RenterController.cs" />
+    <Compile Include="Controllers\SpaceAmenityController.cs" />
     <Compile Include="Controllers\SpaceController.cs" />
     <Compile Include="Controllers\SpaceOwnerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Amenities\AmenityEdit.cs" />
+    <Compile Include="Bookings\BookingCreate.cs" />
+    <Compile Include="Bookings\BookingDetails.cs" />
+    <Compile Include="Bookings\BookingEdit.cs" />
+    <Compile Include="Bookings\BookingListItem.cs" />
     <Compile Include="Categories\CategoryEdit.cs" />
     <Compile Include="Categories\CategoryListItem.cs" />
     <Compile Include="Amenities\AmenityListItem.cs" />
@@ -54,6 +58,10 @@
     <Compile Include="Renters\RenterCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renters\RenterListItem.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityCreate.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityDetails.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityEdit.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityListItem.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerListItem.cs" />
     <Compile Include="Spaces\SpaceCreate.cs" />
