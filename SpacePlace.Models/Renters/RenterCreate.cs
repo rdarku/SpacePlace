@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpacePlace.Models
+namespace SpacePlace.Models.Renters
 {
     public class RenterCreate
     {
