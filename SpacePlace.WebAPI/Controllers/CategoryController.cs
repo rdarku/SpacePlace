@@ -32,6 +32,10 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         // get -- list
+        public IHttpActionResult Get()
+        {
+            return Ok(_service.GetAllCategories());
+        }
 
         // get -- by Id
 

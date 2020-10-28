@@ -2,6 +2,7 @@
 using SpacePlace.Models.Categories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.EntitySql;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,13 @@ namespace SpacePlace.Services
 
             try
             {
-                using(var ctx = new ApplicationDbContext())
+                using (var ctx = new ApplicationDbContext())
                 {
                     ctx.Categories.Add(newCategory);
                     return ctx.SaveChanges() == 1;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return false;
@@ -36,6 +37,21 @@ namespace SpacePlace.Services
         }
 
         // read all
+        public IEnumerable<CategoryListItem> GetAllCategories()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return ctx.Categories
+                    .Select(c => new CategoryListItem
+                    {
+                        CategoryId = c.Id,
+                        Name = c.Name,
+                        Description = c.Description,
+                        CreatedAt = c.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
 
         // read by ID
 
