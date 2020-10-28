@@ -16,7 +16,7 @@ namespace SpacePlace.Services
             var newrenter = new Renter()
             {
                 RenterId = model.RenterID,
-                CreatedAt= DateTime.Now
+                CreatedAt= DateTimeOffset.Now
             };
 
             try
