@@ -9,6 +9,11 @@ namespace SpacePlace.Models.Ratings
 {
     public class RatingCreate
     {
+        [Required]
+        public int SpaceId { get; set; }
+
+        [Required]
+        public int RenterId { get; set; }
 
         public string Comments { get; set; }
 

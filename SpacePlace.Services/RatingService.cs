@@ -39,6 +39,57 @@ namespace SpacePlace.Services
                     return false;
                 }
             }
-     }
+
+        // get list of all ratings for ONE SPACE
+        public IEnumerable<RatingListItem> GetAllRatings()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return ctx.Ratings
+                    .Select(r => new RatingListItem
+                    {
+                        SpaceId = r.  SpaceId,
+                        Comments = r.Comments,
+                        CleanlinessRating = r.CleanlinessRating,
+                        EnvironmentRating = r.EnvironmentRating,
+                        ResponsivenessRating = r.ResponsivenessRating,
+                        LuxuryRating = r.LuxuryRating,
+                        AccessibilityRating = r.AccessibilityRating
+                    }
+                    ).ToList();
+            }
+        }
+        //get one rating for one space? ???
+        public RatingListItem GetRatingById(int id)
+        {
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var foundRating = ctx.Ratings.Where(c => c.Id == id)
+                        .FirstOrDefault();
+
+                    return (foundRating != null) ?
+                        new RatingListItem()
+                        {
+                            SpaceId = foundRating.SpaceId,
+                            Comments = foundRating.Comments,
+                            CleanlinessRating = foundRating.CleanlinessRating,
+                            EnvironmentRating = foundRating.EnvironmentRating,
+                            ResponsivenessRating = foundRating.ResponsivenessRating,
+                            LuxuryRating = foundRating.LuxuryRating,
+                            AccessibilityRating = foundRating.AccessibilityRating
+                        }
+                        : null;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+    }
     
 }
