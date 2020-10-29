@@ -2,8 +2,8 @@
 <br />
 <p align="center">
   <h3 align="center">SPACE PLACE</h3>
-<a href="https://github.com/rdarku/SpacePlace">
-    <img src="" alt="Logo" width="80" height="80">  <!--images here for space place project--->
+<a href="SpaceRoom.png">
+    <img src="SpaceRoom.png" alt="SpacePlaceRoom" width="100" height="100">  <!--images here for space place project--->
   </a>
   <p align="center">
     WE WILL COME UP WITH SOME COOL STUFF HERE!
