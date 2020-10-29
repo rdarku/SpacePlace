@@ -4,6 +4,7 @@ using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class BookingController : ApiController
     {
         private readonly BookingService _service = new BookingService();
@@ -50,7 +51,7 @@ namespace SpacePlace.WebAPI.Controllers
         //Delete -- Remove
         public IHttpActionResult Delete([FromUri]int id)
         {
-            return Ok(_service.DeleteBooking(id));
+            return Ok(_service.ArchiveBooking(id));
         }
     }
 }

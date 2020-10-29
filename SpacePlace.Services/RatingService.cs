@@ -3,8 +3,6 @@ using SpacePlace.Models.Ratings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
@@ -20,8 +18,11 @@ namespace SpacePlace.Services
                     EnvironmentRating = model.EnvironmentRating,
                     ResponsivenessRating = model.ResponsivenessRating,
                     LuxuryRating = model.LuxuryRating,
-                    AccessibilityRating = model.AccessibilityRating
-
+                    AccessibilityRating = model.AccessibilityRating,
+                    RenterId = model.RenterId,
+                    SpaceId = model.SpaceId
+                    
+                    // missing renterID and SpaceID
                 };
 
                 try
@@ -55,7 +56,8 @@ namespace SpacePlace.Services
                         EnvironmentRating = r.EnvironmentRating,
                         ResponsivenessRating = r.ResponsivenessRating,
                         LuxuryRating = r.LuxuryRating,
-                        AccessibilityRating = r.AccessibilityRating
+                        AccessibilityRating = r.AccessibilityRating,
+                        RatingId = r.Id
                     }
                     ).ToList();
             }
@@ -79,7 +81,8 @@ namespace SpacePlace.Services
                             EnvironmentRating = foundRating.EnvironmentRating,
                             ResponsivenessRating = foundRating.ResponsivenessRating,
                             LuxuryRating = foundRating.LuxuryRating,
-                            AccessibilityRating = foundRating.AccessibilityRating
+                            AccessibilityRating = foundRating.AccessibilityRating,
+                            RatingId = foundRating.Id
                         }
                         : null;
 

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Models.Bookings
 {
@@ -14,12 +10,6 @@ namespace SpacePlace.Models.Bookings
 
         [Required]
         public int RenterId { get; set; }
-
-        [Required]//Do we want a range on this?
-        public int Duration { get; set; }
-
-        [Required]
-        public string DurationUnit { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }

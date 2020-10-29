@@ -69,6 +69,7 @@
     <Compile Include="Spaces\SpaceDetails.cs" />
     <Compile Include="Spaces\SpaceEdit.cs" />
     <Compile Include="Spaces\SpaceListItem.cs" />
+    <Compile Include="Spaces\SpaceSearchParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">

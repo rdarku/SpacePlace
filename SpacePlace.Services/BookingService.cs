@@ -17,11 +17,10 @@ namespace SpacePlace.Services
             {
                 SpaceId = model.SpaceId,
                 RenterId = model.RenterId,
-                Duration = model.Duration,
-                DurationUnit = model.DurationUnit,
                 BookingDate = DateTime.Now,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate
+                EndDate = model.EndDate,
+                Status = "booked"
             };
 
             try
@@ -51,7 +50,6 @@ namespace SpacePlace.Services
                         BookingId = b.Id,
                         SpaceId = b.SpaceId,
                         RenterId = b.RenterId,
-                        
                         BookingDate = b.BookingDate,
                         StartDate = b.StartDate,
                         EndDate = b.EndDate
@@ -121,7 +119,7 @@ namespace SpacePlace.Services
         }
 
         //Delete
-        public bool DeleteBooking(int id) //We want to archive
+        public bool ArchiveBooking(int id) //We want to archive
         {
             try
             {
@@ -133,8 +131,8 @@ namespace SpacePlace.Services
                     if (bookingEntity == null)
                         return false;
 
-                    
-                    ctx.Bookings.Remove(bookingEntity);
+
+                    bookingEntity.Status = "archived";
 
                     return ctx.SaveChanges() == 1;
                 }

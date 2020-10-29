@@ -4,6 +4,7 @@ using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class RatingController : ApiController
     {
         private readonly RatingService _service = new RatingService();

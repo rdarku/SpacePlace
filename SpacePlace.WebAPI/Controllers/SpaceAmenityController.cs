@@ -4,6 +4,7 @@ using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class SpaceAmenityController : ApiController
     {
         private readonly SpaceAmenityService _service = new SpaceAmenityService();

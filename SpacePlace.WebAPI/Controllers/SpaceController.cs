@@ -5,6 +5,7 @@ using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class SpaceController : ApiController
     {
         private readonly SpaceService _service;
@@ -18,15 +19,17 @@ namespace SpacePlace.WebAPI.Controllers
 
         public IHttpActionResult Post([FromBody] SpaceCreate model)
         {
+            var user = User.Identity.GetUserId();
+
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
-            return Ok(_service.CreateSpace(model));
+            return Ok(_service.CreateSpace(model, user));
         }
 
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] SpaceSearchParams searchParams) 
         {
-            return Ok(_service.GetAllSpaces());
+            return Ok(_service.GetAllSpaces(searchParams));
         }
 
         public IHttpActionResult Get([FromUri] int id)

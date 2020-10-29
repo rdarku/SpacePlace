@@ -17,11 +17,11 @@ namespace SpacePlace.Services
             _userId = userId;
         }
 
-        public bool CreateSpace(SpaceCreate model)
+        public bool CreateSpace(SpaceCreate model, string userID)
         {
             var newSpace = new Space { 
                 CategoryId = model.CategoryId,
-                OwnerId = _userId,
+                OwnerId = userID,
                 CreatedAt = DateTimeOffset.Now,
                 Legal = model.Legal,
                 Status = "vacant",
@@ -46,13 +46,24 @@ namespace SpacePlace.Services
             }
         }
 
-        public IEnumerable<SpaceListItem> GetAllSpaces()
+        // need to add perspectives to this so we can get spaces for a particular owner
+        public IEnumerable<SpaceListItem> GetAllSpaces(SpaceSearchParams model)
         {
             try
             {
                 using(var ctx = new ApplicationDbContext())
                 {
-                    return ctx.Spaces
+                    var query = ctx.Spaces;
+                    if (model.ShowByOwner && model.OwnerId != null)
+                    {
+                        query.Where(s => s.OwnerId == model.OwnerId);
+                    }
+
+                    if (model.ShowOnlyVacant)
+                        query.Where(s => s.Status == "vacant");
+                   
+
+                   return query
                         .Select(s => new SpaceListItem
                         {
                             Category = s.Category.Name,

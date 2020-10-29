@@ -8,6 +8,8 @@ namespace SpacePlace.Models.Ratings
 {
     public class RatingListItem
     {
+        public int RatingId { get; set; }
+
         public int SpaceId { get; set; }
 
         public string Comments { get; set; }
