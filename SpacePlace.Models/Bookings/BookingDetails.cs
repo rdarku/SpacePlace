@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace SpacePlace.Models.Bookings
 {
-    class BookingDetails
+    public class BookingDetails
     {
+        public int Id { get; set; }
+
+        public int SpaceId { get; set; }
+
+        public int RenterId { get; set; }
+
+        public int Duration { get; set; }
+
+        public string DurationUnit { get; set; }
+
+        public string Stauts { get; set; }
+
+        public DateTime BookingDate { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
     }
 }
