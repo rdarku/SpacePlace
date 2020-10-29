@@ -2,8 +2,8 @@
 <br />
 <p align="center">
   <h3 align="center">SPACE PLACE</h3>
-<a href="https://github.com/rdarku/SpacePlace">
-    <img src="" alt="Logo" width="80" height="80">  <!--images here for space place project--->
+<a href="SpaceRoom.png">
+    <img src="./assets/SpaceRoom.png" alt="SpacePlaceRoom">  <!--images here for space place project--->
   </a>
   <p align="center">
     WE WILL COME UP WITH SOME COOL STUFF HERE!
@@ -24,16 +24,15 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Space Place Project
-* 
+* Discuss here anything we want to share about our project
 
 ### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+Framework, plug ins etc.
 * [Swagger API](https://getbootstrap.com)
 * [GitHub](https://github.com)
 
 <!-- PROJECT EXAMPLES -->
 ## Project
-
 will add project examples,screen captures etc. here
 
 <!-- OPEN ISSUES -->
