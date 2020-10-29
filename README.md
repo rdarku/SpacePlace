@@ -3,7 +3,7 @@
 <p align="center">
   <h3 align="center">SPACE PLACE</h3>
 <a href="SpaceRoom.png">
-    <img src="./assets/SpaceRoom.png" alt="SpacePlaceRoom" width="100" height="100">  <!--images here for space place project--->
+    <img src="./assets/SpaceRoom.png" alt="SpacePlaceRoom">  <!--images here for space place project--->
   </a>
   <p align="center">
     WE WILL COME UP WITH SOME COOL STUFF HERE!
