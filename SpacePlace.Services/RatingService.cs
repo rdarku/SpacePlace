@@ -41,11 +41,12 @@ namespace SpacePlace.Services
             }
 
         // get list of all ratings for ONE SPACE
-        public IEnumerable<RatingListItem> GetAllRatings()
+        public IEnumerable<RatingListItem> GetAllRatings(RatingSearchParams model)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 return ctx.Ratings
+                    .Where(r => r.SpaceId == model.SpaceId)
                     .Select(r => new RatingListItem
                     {
                         SpaceId = r.  SpaceId,

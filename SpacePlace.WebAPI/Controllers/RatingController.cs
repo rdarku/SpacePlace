@@ -1,10 +1,5 @@
 ﻿using SpacePlace.Models.Ratings;
 using SpacePlace.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -30,9 +25,9 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         // get -- list
-        public IHttpActionResult Get()
+        public IHttpActionResult Get([FromUri] RatingSearchParams spaceID)
         {
-            return Ok(_service.GetAllRatings());
+            return Ok(_service.GetAllRatings(spaceID));
         }
 
         // get -- by Id
