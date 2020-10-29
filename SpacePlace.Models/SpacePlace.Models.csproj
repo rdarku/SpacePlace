@@ -63,6 +63,7 @@
     <Compile Include="SpaceAmenities\SpaceAmenityDetails.cs" />
     <Compile Include="SpaceAmenities\SpaceAmenityEdit.cs" />
     <Compile Include="SpaceAmenities\SpaceAmenityListItem.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenitySearchParams.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerListItem.cs" />
     <Compile Include="Spaces\SpaceCreate.cs" />

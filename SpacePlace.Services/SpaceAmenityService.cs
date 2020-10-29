@@ -1,4 +1,5 @@
 ﻿using SpacePlace.Data;
+using SpacePlace.Models.Ratings;
 using SpacePlace.Models.SpaceAmenities;
 using System;
 using System.Collections.Generic;
@@ -43,8 +44,7 @@ namespace SpacePlace.Services
                         .Select(s => new SpaceAmenityListItem
                         {
                             AmenityName = s.Amenity.Name,
-                            SpaceName = s.Space.Name,
-                            Id = s.Id
+                            SpaceName = s.Space.Name
                         }).ToList();
                 }
             }
@@ -55,20 +55,19 @@ namespace SpacePlace.Services
             }
         }
 
-        public SpaceAmenityDetails GetSpaceAmenityById(int id)
+        public SpaceAmenityDetails GetSpaceAmenityById(SpaceAmenitySearchParams model)
         {
             try
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == id)
+                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.SpaceId)
                         .FirstOrDefault();
 
                     if (spaceAmenity == null) return null;
 
                     return new SpaceAmenityDetails()
                     {
-                        Id = spaceAmenity.Id,
                         AmenityId = spaceAmenity.AmenityId,
                         AmenityName = spaceAmenity.Amenity.Name,
                         Description = spaceAmenity.Amenity.Description,
@@ -90,7 +89,7 @@ namespace SpacePlace.Services
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == model.Id)
+                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.AmenityId)
                         .FirstOrDefault();
 
                     if (spaceAmenity == null) return false;
@@ -108,13 +107,13 @@ namespace SpacePlace.Services
             }
         }
 
-        public bool DeleteSpaceAmenity(int id)
+        public bool DeleteSpaceAmenity(SpaceAmenitySearchParams model)
         {
             try
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == id)
+                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.AmenityId)
                         .FirstOrDefault();
 
                     ctx.SpaceAmenities.Remove(spaceAmenity);
