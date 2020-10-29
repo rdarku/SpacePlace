@@ -61,9 +61,89 @@ namespace SpacePlace.Services
         }
 
         //read by ID
+        public BookingListItem GetBookingById(int id)
+        {
+            try
+            {
+                using(var ctx = new ApplicationDbContext())
+                {
+                    var foundBooking = ctx.Bookings.Where(b => b.Id == id)
+                        .FirstOrDefault();
+
+                    return (foundBooking != null) ?
+                        new BookingListItem()
+                        {
+                            BookingId = foundBooking.Id,
+                            SpaceId = foundBooking.SpaceId,
+                            RenterId = foundBooking.RenterId,
+                            BookingDate = foundBooking.BookingDate,
+                            StartDate = foundBooking.StartDate,
+                            EndDate = foundBooking.EndDate
+                        }
+                        : null;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
 
         //Update
+        public bool UpdateBooking(BookingEdit model)
+        {
+            try
+            {
+                using(var ctx = new ApplicationDbContext())
+                {
+                    var bookingEntity = ctx.Bookings.Where(b => b.Id == model.Id)
+                        .FirstOrDefault();
+
+                    if (bookingEntity == null)
+                        return false;
+
+                    bookingEntity.Id = model.Id;
+                    bookingEntity.RenterId = model.RenterId;
+                    bookingEntity.SpaceId = model.SpaceId;
+                    bookingEntity.StartDate = model.StartDate;
+                    bookingEntity.EndDate = model.EndDate;
+
+                    return ctx.SaveChanges() == 1;
+
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
 
         //Delete
+        public bool DeleteBooking(int id) //We want to archive
+        {
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var bookingEntity = ctx.Bookings.Where(b => b.Id == id)
+                        .FirstOrDefault();
+
+                    if (bookingEntity == null)
+                        return false;
+
+                    
+                    ctx.Bookings.Remove(bookingEntity);
+
+                    return ctx.SaveChanges() == 1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }
