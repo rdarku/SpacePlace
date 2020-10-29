@@ -21,9 +21,9 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(_service.GetAllSpaceAmmenities());
         }
 
-        public IHttpActionResult Get([FromUri] int id)
+        public IHttpActionResult Get([FromUri] int SpaceId, int AmenityId)
         {
-            return Ok(_service.GetSpaceAmenityById(id));
+            return Ok(_service.GetSpaceAmenityById(SpaceId, AmenityId));
         }
 
         public IHttpActionResult Put([FromBody] SpaceAmenityEdit model)
@@ -34,9 +34,9 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(_service.UpdateSpaceAmenity(model));
         }
 
-        public IHttpActionResult Delete([FromUri] int id)
+        public IHttpActionResult Delete([FromUri] int SpaceId, int AmenityId)
         {
-            return Ok(_service.DeleteSpaceAmenity(id));
+            return Ok(_service.DeleteSpaceAmenity(SpaceId, AmenityId));
         }
     }
 }

@@ -6,8 +6,6 @@ namespace SpacePlace.Data
 {
     public class SpaceAmenity
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         public int SpaceId { get; set; }
