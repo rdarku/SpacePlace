@@ -1,4 +1,5 @@
-﻿using SpacePlace.Models.SpaceAmenities;
+﻿using SpacePlace.Models.Ratings;
+using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Services;
 using System.Web.Http;
 
@@ -21,9 +22,9 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(_service.GetAllSpaceAmmenities());
         }
 
-        public IHttpActionResult Get([FromUri] int SpaceId, int AmenityId)
+        public IHttpActionResult Get([FromUri] SpaceAmenitySearchParams model)
         {
-            return Ok(_service.GetSpaceAmenityById(SpaceId, AmenityId));
+            return Ok(_service.GetSpaceAmenityById(model));
         }
 
         public IHttpActionResult Put([FromBody] SpaceAmenityEdit model)
@@ -34,9 +35,9 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(_service.UpdateSpaceAmenity(model));
         }
 
-        public IHttpActionResult Delete([FromUri] int SpaceId, int AmenityId)
+        public IHttpActionResult Delete([FromUri] SpaceAmenitySearchParams model)
         {
-            return Ok(_service.DeleteSpaceAmenity(SpaceId, AmenityId));
+            return Ok(_service.DeleteSpaceAmenity(model));
         }
     }
 }
