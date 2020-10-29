@@ -41,6 +41,24 @@ namespace SpacePlace.Services
         }
 
         //read all
+        public IEnumerable<BookingListItem> GetAllBookings()
+        {
+            using(var ctx = new ApplicationDbContext())
+            {
+                return ctx.Bookings
+                    .Select(b => new BookingListItem
+                    {
+                        BookingId = b.Id,
+                        SpaceId = b.SpaceId,
+                        RenterId = b.RenterId,
+                        
+                        BookingDate = b.BookingDate,
+                        StartDate = b.StartDate,
+                        EndDate = b.EndDate
+                    }
+                    ).ToList();
+            }
+        }
 
         //read by ID
 
