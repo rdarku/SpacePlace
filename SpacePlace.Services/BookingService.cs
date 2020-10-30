@@ -83,6 +83,30 @@ namespace SpacePlace.Services
             }
         }
 
+        //get booking with amenities
+
+        public Booking GetBookingByIdWithAmenities(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var booking = (from bo in ctx.Bookings
+                               join am in ctx.Amenities on bo.Id equals am.Id
+                               where bo.Id == id
+                               select new Booking()
+                               {
+                                   Id = bo.Id,
+                                   RenterId = bo.RenterId,
+                                   Renter = bo.Renter,
+                                   Space = bo.Space,
+                                   SpaceId = bo.SpaceId,
+                                   StartDate = bo.StartDate,
+                                   Status = bo.Status
+                               }).FirstOrDefault();
+        
+                return booking;
+            }
+        }
+
         public bool UpdateBooking(BookingEdit model)
         {
             try

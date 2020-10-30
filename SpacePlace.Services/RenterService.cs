@@ -45,6 +45,19 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
+        public Renter GetRenterById(string id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var renter = (from r in ctx.Renters.Where(r => r.RenterId == id)
+                               select new Renter()
+                               {
+                                   RenterId = r.RenterId,
 
+                               }).FirstOrDefault();
+
+                return renter;
+            }
+        }
     }
 }

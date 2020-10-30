@@ -37,5 +37,17 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
+        public IHttpActionResult Get([FromUri] string id)
+        {
+            var response = _service.GetRenterById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
+        }
+
     }
 }
