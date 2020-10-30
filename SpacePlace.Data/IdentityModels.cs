@@ -58,14 +58,6 @@ namespace SpacePlace.Data
         public DbSet<Space> Spaces { get; set; }
 
         public DbSet<SpaceAmenity> SpaceAmenities { get; set; }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<SpaceAmenity>()
-                .HasKey(s => new { s.SpaceId, s.AmenityId });
-                
-        }
-
-
 
         public DbSet<Booking> Bookings { get; set; }
 
@@ -80,6 +72,9 @@ namespace SpacePlace.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SpaceAmenity>()
+               .HasKey(s => new { s.SpaceId, s.AmenityId });
 
             modelBuilder.Entity<Space>()
                 .HasRequired(c => c.SpaceOwner)
