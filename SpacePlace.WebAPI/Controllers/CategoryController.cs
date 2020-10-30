@@ -1,7 +1,5 @@
 ﻿using SpacePlace.Models.Categories;
 using SpacePlace.Services;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -32,10 +30,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response = _service.GetAllCategories();
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }
@@ -45,10 +40,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response =_service.GetCategoryById(id);
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }
@@ -68,6 +60,16 @@ namespace SpacePlace.WebAPI.Controllers
         // delete -- remove
         public IHttpActionResult Delete([FromUri] int id)
         {
+            CategoryListItem item = _service.GetCategoryById(id);
+            if(item == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No category with ID = {0}", id)),
+                    ReasonPhrase = "Category ID Not Found"
+                };
+                throw new HttpResponseException(resp);
+            }
             return Ok(_service.DeleteCategory(id));
         }
     }

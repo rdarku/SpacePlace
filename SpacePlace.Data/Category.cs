@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SpacePlace.Data
 {
     public class Category
     {
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public Category()
+        {
+            Spaces = new HashSet<Space>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -23,6 +30,7 @@ namespace SpacePlace.Data
 
         public DateTimeOffset ModifiedAt { get; set; }
 
-        public IEnumerable<Space> Spaces { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public ICollection<Space> Spaces { get; set; }
     }
 }
