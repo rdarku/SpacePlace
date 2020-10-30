@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace SpacePlace.Data
 {
     public class Space
     {
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public Space()
+        {
+            SpaceAmenities = new HashSet<SpaceAmenity>();
+            Ratings = new HashSet<Rating>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -45,9 +53,11 @@ namespace SpacePlace.Data
         [ForeignKey(nameof(CategoryId))]
         public virtual Category Category { get; set; }
 
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public ICollection<SpaceAmenity> SpaceAmenities { get; set; }
 
-        public IEnumerable<Rating> Ratings { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public ICollection<Rating> Ratings { get; set; }
 
         public double AverageCleanlinessRating
         {

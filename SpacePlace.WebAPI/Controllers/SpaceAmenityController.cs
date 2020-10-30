@@ -1,7 +1,5 @@
 ﻿using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Services;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -23,10 +21,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response = _service.GetAllSpaceAmmenities();
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }
@@ -35,10 +30,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response = _service.GetSpaceAmenityById(id);
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }

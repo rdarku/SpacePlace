@@ -7,6 +7,7 @@ namespace SpacePlace.Data
     public class SpaceAmenity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

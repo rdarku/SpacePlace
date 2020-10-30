@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SpacePlace.Models.Spaces;
 using SpacePlace.Services;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -33,10 +31,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response =_service.GetAllSpaces(searchParams);
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }
@@ -45,10 +40,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response = _service.GetSpaceById(id);
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+                return NotFound();
 
             return Ok(response);
         }
