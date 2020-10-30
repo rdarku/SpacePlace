@@ -46,6 +46,20 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
+        public SpaceOwner GetOwnerById(string id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var SpaceOwner = (from r in ctx.SpaceOwners.Where(r => r.SpaceOwnerId == id)
+                              select new SpaceOwner()
+                              {
+                                  SpaceOwnerId = r.SpaceOwnerId,
+
+                              }).FirstOrDefault();
+
+                return SpaceOwner;
+            }
+        }
 
     }
 }
