@@ -1,6 +1,7 @@
-﻿using SpacePlace.Models.Ratings;
-using SpacePlace.Models.SpaceAmenities;
+﻿using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -20,12 +21,26 @@ namespace SpacePlace.WebAPI.Controllers
 
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllSpaceAmmenities());
+            var response = _service.GetAllSpaceAmmenities();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
-        public IHttpActionResult Get([FromUri] SpaceAmenitySearchParams model)
+        public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetSpaceAmenityById(model));
+            var response = _service.GetSpaceAmenityById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         public IHttpActionResult Put([FromBody] SpaceAmenityEdit model)
@@ -36,9 +51,9 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(_service.UpdateSpaceAmenity(model));
         }
 
-        public IHttpActionResult Delete([FromUri] SpaceAmenitySearchParams model)
+        public IHttpActionResult Delete([FromUri] int id)
         {
-            return Ok(_service.DeleteSpaceAmenity(model));
+            return Ok(_service.DeleteSpaceAmenity(id));
         }
     }
 }

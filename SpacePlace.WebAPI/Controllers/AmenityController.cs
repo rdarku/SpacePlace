@@ -1,5 +1,7 @@
 ﻿using SpacePlace.Models.Amenities;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -27,13 +29,27 @@ namespace SpacePlace.WebAPI.Controllers
         //Get -- <List>
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllAmenities());
+            var response = _service.GetAllAmenities();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         //Get -- By ID
         public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetAmenityById(id));
+            var response =_service.GetAmenityById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         //Put -- Update

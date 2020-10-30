@@ -8,7 +8,6 @@ namespace SpacePlace.Services
 {
     public class RatingService
     {
-
             public bool CreateRating(RatingCreate model)
             {
                 var newRating = new Rating
@@ -21,8 +20,6 @@ namespace SpacePlace.Services
                     AccessibilityRating = model.AccessibilityRating,
                     RenterId = model.RenterId,
                     SpaceId = model.SpaceId
-                    
-                    // missing renterID and SpaceID
                 };
 
                 try
@@ -41,7 +38,6 @@ namespace SpacePlace.Services
                 }
             }
 
-        // get list of all ratings for ONE SPACE
         public IEnumerable<RatingListItem> GetAllRatings(RatingSearchParams model)
         {
             using (var ctx = new ApplicationDbContext())
@@ -62,7 +58,7 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
-        //get one rating for one space? ???
+
         public RatingListItem GetRatingById(int id)
         {
             try
@@ -85,7 +81,6 @@ namespace SpacePlace.Services
                             RatingId = foundRating.Id
                         }
                         : null;
-
                 }
             }
             catch (Exception e)

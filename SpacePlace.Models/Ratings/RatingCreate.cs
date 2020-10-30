@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SpacePlace.Models.Ratings
 {
@@ -18,23 +13,23 @@ namespace SpacePlace.Models.Ratings
         public string Comments { get; set; }
 
         [Required]
-        [Range(0d, 5d)]
-        public double CleanlinessRating { get; set; }
+        [Range(0, 5)]
+        public int CleanlinessRating { get; set; }
 
         [Required]
-        [Range(0d, 5d)]
-        public double EnvironmentRating { get; set; }
+        [Range(0, 5)]
+        public int EnvironmentRating { get; set; }
 
         [Required]
-        [Range(0d, 5d)]
-        public double ResponsivenessRating { get; set; }
+        [Range(0, 5)]
+        public int ResponsivenessRating { get; set; }
 
         [Required]
-        [Range(0d, 5d)]
-        public double LuxuryRating { get; set; }
+        [Range(0, 5)]
+        public int LuxuryRating { get; set; }
 
         [Required]
-        [Range(0d, 5d)]
-        public double AccessibilityRating { get; set; }
+        [Range(0, 5)]
+        public int AccessibilityRating { get; set; }
     }
 }

@@ -10,6 +10,8 @@ namespace SpacePlace.Data
         public int Id { get; set; }
 
         [Required]
+        [StringLength(450)]
+        [Index(IsUnique =true)]
         public string SpaceOwnerId { get; set; }
 
         [Required]

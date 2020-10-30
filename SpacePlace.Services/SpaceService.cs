@@ -1,10 +1,9 @@
 ﻿using SpacePlace.Data;
+using SpacePlace.Data.Extensions;
 using SpacePlace.Models.Spaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
@@ -46,24 +45,25 @@ namespace SpacePlace.Services
             }
         }
 
-        // need to add perspectives to this so we can get spaces for a particular owner
         public IEnumerable<SpaceListItem> GetAllSpaces(SpaceSearchParams model)
         {
             try
             {
                 using(var ctx = new ApplicationDbContext())
                 {
-                    var query = ctx.Spaces;
+                    var predicate = PredicateBuilder.True<Space>();
+
                     if (model.ShowByOwner && model.OwnerId != null)
                     {
-                        query.Where(s => s.OwnerId == model.OwnerId);
+                        predicate.And(s => s.OwnerId == model.OwnerId);
                     }
 
                     if (model.ShowOnlyVacant)
-                        query.Where(s => s.Status == "vacant");
+                        predicate.And(s => s.Status == "vacant");
                    
 
-                   return query
+                   return ctx.Spaces
+                        .Where(predicate)
                         .Select(s => new SpaceListItem
                         {
                             Category = s.Category.Name,

@@ -1,5 +1,7 @@
 ﻿using SpacePlace.Models.Ratings;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -28,17 +30,27 @@ namespace SpacePlace.WebAPI.Controllers
         // get -- list
         public IHttpActionResult Get([FromUri] RatingSearchParams spaceID)
         {
-            return Ok(_service.GetAllRatings(spaceID));
+            var response =_service.GetAllRatings(spaceID);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         // get -- by Id
         public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetRatingById(id));
+            var response = _service.GetRatingById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
-
-        // Put -- update -- we are not allowing at this time
-        //Remove -- we are not allowing at this time
-
     }
 }

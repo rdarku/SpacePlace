@@ -3,14 +3,11 @@ using SpacePlace.Models.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class BookingService
     {
-        //create
         public bool CreateBooking(BookingCreate model)
         {
             var newBooking = new Booking
@@ -39,7 +36,6 @@ namespace SpacePlace.Services
 
         }
 
-        //read all
         public IEnumerable<BookingListItem> GetAllBookings()
         {
             using(var ctx = new ApplicationDbContext())
@@ -58,7 +54,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //read by ID
         public BookingListItem GetBookingById(int id)
         {
             try
@@ -88,7 +83,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //Update
         public bool UpdateBooking(BookingEdit model)
         {
             try
@@ -118,8 +112,7 @@ namespace SpacePlace.Services
             }
         }
 
-        //Delete
-        public bool ArchiveBooking(int id) //We want to archive
+        public bool CancelBooking(int id)
         {
             try
             {
@@ -132,7 +125,7 @@ namespace SpacePlace.Services
                         return false;
 
 
-                    bookingEntity.Status = "archived";
+                    bookingEntity.Status = "Cancel";
 
                     return ctx.SaveChanges() == 1;
                 }

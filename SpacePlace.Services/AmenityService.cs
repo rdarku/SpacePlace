@@ -3,15 +3,11 @@ using SpacePlace.Models.Amenities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class AmenityService
     {
-        //create
         public bool CreateAmenity(AmenityCreate model)
         {
             var newAmenity = new Amenity
@@ -37,7 +33,6 @@ namespace SpacePlace.Services
                 
         }
 
-        //read all
         public IEnumerable<AmenityListItem> GetAllAmenities()
         {
             using(var ctx = new ApplicationDbContext())
@@ -54,7 +49,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //read by ID
         public AmenityListItem GetAmenityById(int id)
         {
             try
@@ -82,7 +76,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //update
         public bool UpdateAmenity(AmenityEdit model)
         {
             try
@@ -109,7 +102,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //delete
         public bool DeleteAmenity(int id)
         {
             try
@@ -123,9 +115,14 @@ namespace SpacePlace.Services
                         return false;
 
                     //check to make sure amenity is not linked to SpaceAmenities before deleting
-                    ctx.Amenities.Remove(amenityEntity);
+                    if(amenityEntity.SpaceAmenities == null)
+                    {
+                        ctx.Amenities.Remove(amenityEntity);
 
-                    return ctx.SaveChanges() == 1;
+                        return ctx.SaveChanges() == 1;
+                    }
+
+                    return false;
                 }
             }
             catch (Exception e)

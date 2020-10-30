@@ -73,8 +73,8 @@ namespace SpacePlace.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<SpaceAmenity>()
-               .HasKey(s => new { s.SpaceId, s.AmenityId });
+            //modelBuilder.Entity<SpaceAmenity>()
+            //   .HasKey(s => new { s.SpaceId, s.AmenityId });
 
             modelBuilder.Entity<Space>()
                 .HasRequired(c => c.SpaceOwner)

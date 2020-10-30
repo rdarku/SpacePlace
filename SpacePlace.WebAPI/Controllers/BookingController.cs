@@ -1,5 +1,7 @@
 ﻿using SpacePlace.Models.Bookings;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -27,13 +29,27 @@ namespace SpacePlace.WebAPI.Controllers
         //Get -- List
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllBookings());
+            var response = _service.GetAllBookings();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         //Get -- By ID
         public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetBookingById(id));
+            var response = _service.GetBookingById(id);
+            if(response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         //Put -- Update
@@ -51,7 +67,7 @@ namespace SpacePlace.WebAPI.Controllers
         //Delete -- Remove
         public IHttpActionResult Delete([FromUri]int id)
         {
-            return Ok(_service.ArchiveBooking(id));
+            return Ok(_service.CancelBooking(id));
         }
     }
 }

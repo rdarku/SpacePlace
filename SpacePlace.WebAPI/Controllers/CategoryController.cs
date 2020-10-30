@@ -1,12 +1,8 @@
 ﻿using SpacePlace.Models.Categories;
 using SpacePlace.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Razor.Parser;
 
 namespace SpacePlace.WebAPI.Controllers
 {
@@ -34,13 +30,27 @@ namespace SpacePlace.WebAPI.Controllers
         // get -- list
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllCategories());
+            var response = _service.GetAllCategories();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         // get -- by Id
         public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetCategoryById(id));
+            var response =_service.GetCategoryById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         // Put -- update

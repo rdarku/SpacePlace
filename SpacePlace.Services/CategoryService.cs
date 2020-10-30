@@ -2,16 +2,12 @@
 using SpacePlace.Models.Categories;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Common.EntitySql;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class CategoryService
     {
-        // create
         public bool CreateCategory(CategoryCreate model)
         {
             var newCategory = new Category
@@ -36,7 +32,6 @@ namespace SpacePlace.Services
             }
         }
 
-        // read all
         public IEnumerable<CategoryListItem> GetAllCategories()
         {
             using (var ctx = new ApplicationDbContext())
@@ -53,7 +48,6 @@ namespace SpacePlace.Services
             }
         }
 
-        // read by ID
         public CategoryListItem GetCategoryById(int id)
         {
             try
@@ -81,7 +75,6 @@ namespace SpacePlace.Services
             }
         }
 
-        // update
         public bool UpdateCategory(CategoryEdit model)
         {
             try
@@ -108,7 +101,6 @@ namespace SpacePlace.Services
             }
         }
 
-        // delete
         public bool DeleteCategory(int id)
         {
             try
@@ -122,9 +114,14 @@ namespace SpacePlace.Services
                         return false;
 
                     // make sure this category is not linked to any space before deleting
-                    ctx.Categories.Remove(categoryEntity);
+                    if(categoryEntity.Spaces == null)
+                    {
+                        ctx.Categories.Remove(categoryEntity);
 
-                    return ctx.SaveChanges() == 1;
+                        return ctx.SaveChanges() == 1;
+                    }
+
+                    return false;
                 }
             }
             catch (Exception e)
