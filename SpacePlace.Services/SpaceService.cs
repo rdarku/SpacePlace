@@ -1,5 +1,6 @@
 ﻿using SpacePlace.Data;
 using SpacePlace.Data.Extensions;
+using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Models.Spaces;
 using System;
 using System.Collections.Generic;
@@ -101,7 +102,13 @@ namespace SpacePlace.Services
                         Owner = space.SpaceOwner.FullName,
                         Category = space.Category.Name,
                         Status  = space.Status,
-                        CreatedAt = space.CreatedAt
+                        CreatedAt = space.CreatedAt,
+                        AverageAccessibilityRating = space.AverageAccessibilityRating,
+                        AverageCleanlinessRating = space.AverageCleanlinessRating,
+                        AverageEnvironmentRating = space.AverageEnvironmentRating,
+                        AverageLuxuryRating = space.AverageLuxuryRating,
+                        AverageResponsivenessRating = space.AverageResponsivenessRating,
+                        SpaceAmenities = space.SpaceAmenities as List<SpaceAmenityDetails> 
                     };
                 }
             }
