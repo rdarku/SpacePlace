@@ -1,5 +1,10 @@
-﻿using SpacePlace.Models.Amenities;
+using SpacePlace.Data;
+using SpacePlace.Models.Amenities;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -60,6 +65,16 @@ namespace SpacePlace.WebAPI.Controllers
         //Delete -- Remove
         public IHttpActionResult Delete([FromUri] int id)
         {
+            AmenityListItem item = _service.GetAmenityById(id);
+            if(item == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                    {
+                        Content = new StringContent(string.Format("No amenity with ID = {0}", id)),
+                        ReasonPhrase = "Amenity ID Not Found"
+                    };
+                throw new HttpResponseException(resp);
+            }
             return Ok(_service.DeleteAmenity(id));
         }
     }
