@@ -4,14 +4,11 @@ using SpacePlace.Models.SpaceOwners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class SpaceOwnerService
     {
-        //create
         public bool CreateSpaceOwner(SpaceOwnerCreate model)
         {
             var newSpaceOwner = new SpaceOwner()
@@ -35,8 +32,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //read all
-
         public IEnumerable<SpaceOwnerListItem> GetAllOwners()
         {
             using (var ctx = new ApplicationDbContext())
@@ -51,10 +46,6 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
-
-        //read by ID
-
-        //update
 
     }
 }

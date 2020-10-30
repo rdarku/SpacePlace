@@ -43,8 +43,7 @@ namespace SpacePlace.Services
                         .Select(s => new SpaceAmenityListItem
                         {
                             AmenityName = s.Amenity.Name,
-                            SpaceName = s.Space.Name,
-                            Id = s.Id
+                            SpaceName = s.Space.Name
                         }).ToList();
                 }
             }
@@ -68,7 +67,6 @@ namespace SpacePlace.Services
 
                     return new SpaceAmenityDetails()
                     {
-                        Id = spaceAmenity.Id,
                         AmenityId = spaceAmenity.AmenityId,
                         AmenityName = spaceAmenity.Amenity.Name,
                         Description = spaceAmenity.Amenity.Description,
@@ -90,7 +88,7 @@ namespace SpacePlace.Services
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == model.Id)
+                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.AmenityId)
                         .FirstOrDefault();
 
                     if (spaceAmenity == null) return false;

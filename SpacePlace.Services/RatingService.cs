@@ -3,14 +3,11 @@ using SpacePlace.Models.Ratings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class RatingService
     {
-
             public bool CreateRating(RatingCreate model)
             {
                 var newRating = new Rating
@@ -20,8 +17,9 @@ namespace SpacePlace.Services
                     EnvironmentRating = model.EnvironmentRating,
                     ResponsivenessRating = model.ResponsivenessRating,
                     LuxuryRating = model.LuxuryRating,
-                    AccessibilityRating = model.AccessibilityRating
-
+                    AccessibilityRating = model.AccessibilityRating,
+                    RenterId = model.RenterId,
+                    SpaceId = model.SpaceId
                 };
 
                 try
@@ -40,7 +38,6 @@ namespace SpacePlace.Services
                 }
             }
 
-        // get list of all ratings for ONE SPACE
         public IEnumerable<RatingListItem> GetAllRatings(RatingSearchParams model)
         {
             using (var ctx = new ApplicationDbContext())
@@ -55,12 +52,13 @@ namespace SpacePlace.Services
                         EnvironmentRating = r.EnvironmentRating,
                         ResponsivenessRating = r.ResponsivenessRating,
                         LuxuryRating = r.LuxuryRating,
-                        AccessibilityRating = r.AccessibilityRating
+                        AccessibilityRating = r.AccessibilityRating,
+                        RatingId = r.Id
                     }
                     ).ToList();
             }
         }
-        //get one rating for one space? ???
+
         public RatingListItem GetRatingById(int id)
         {
             try
@@ -79,10 +77,10 @@ namespace SpacePlace.Services
                             EnvironmentRating = foundRating.EnvironmentRating,
                             ResponsivenessRating = foundRating.ResponsivenessRating,
                             LuxuryRating = foundRating.LuxuryRating,
-                            AccessibilityRating = foundRating.AccessibilityRating
+                            AccessibilityRating = foundRating.AccessibilityRating,
+                            RatingId = foundRating.Id
                         }
                         : null;
-
                 }
             }
             catch (Exception e)

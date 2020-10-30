@@ -222,7 +222,6 @@
     <Compile Include="Controllers\SpaceAmenityController.cs" />
     <Compile Include="Controllers\SpaceController.cs" />
     <Compile Include="Controllers\SpaceOwnerController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

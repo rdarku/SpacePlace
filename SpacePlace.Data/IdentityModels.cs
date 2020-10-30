@@ -59,8 +59,6 @@ namespace SpacePlace.Data
 
         public DbSet<SpaceAmenity> SpaceAmenities { get; set; }
 
-
-
         public DbSet<Booking> Bookings { get; set; }
 
 
@@ -69,6 +67,19 @@ namespace SpacePlace.Data
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<SpaceAmenity>()
+            //   .HasKey(s => new { s.SpaceId, s.AmenityId });
+
+            modelBuilder.Entity<Space>()
+                .HasRequired(c => c.SpaceOwner)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

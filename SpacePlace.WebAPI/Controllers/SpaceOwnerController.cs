@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using SpacePlace.Models.SpaceOwner;
 using SpacePlace.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -35,13 +32,14 @@ namespace SpacePlace.WebAPI.Controllers
         //get -- list
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllOwners());
+            var response = _service.GetAllOwners();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
-
-        //get -- by ID
-
-        // put -- update
-
-        // delete -- remove
     }
 }

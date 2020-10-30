@@ -1,9 +1,12 @@
 ﻿using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Services;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
 {
+    [Authorize]
     public class SpaceAmenityController : ApiController
     {
         private readonly SpaceAmenityService _service = new SpaceAmenityService();
@@ -18,12 +21,26 @@ namespace SpacePlace.WebAPI.Controllers
 
         public IHttpActionResult Get()
         {
-            return Ok(_service.GetAllSpaceAmmenities());
+            var response = _service.GetAllSpaceAmmenities();
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         public IHttpActionResult Get([FromUri] int id)
         {
-            return Ok(_service.GetSpaceAmenityById(id));
+            var response = _service.GetSpaceAmenityById(id);
+            if (response == null)
+            {
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+            }
+
+            return Ok(response);
         }
 
         public IHttpActionResult Put([FromBody] SpaceAmenityEdit model)

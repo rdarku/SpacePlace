@@ -20,12 +20,6 @@ namespace SpacePlace.Data
         public virtual Renter Renter { get; set; }
 
         [Required]
-        public int Duration { get; set; }
-
-        [Required]
-        public string DurationUnit { get; set; }
-
-        [Required]
         public DateTime BookingDate { get; set; }
 
         [Required]

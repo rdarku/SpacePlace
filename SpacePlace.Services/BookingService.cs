@@ -3,25 +3,21 @@ using SpacePlace.Models.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class BookingService
     {
-        //create
         public bool CreateBooking(BookingCreate model)
         {
             var newBooking = new Booking
             {
                 SpaceId = model.SpaceId,
                 RenterId = model.RenterId,
-                Duration = model.Duration,
-                DurationUnit = model.DurationUnit,
                 BookingDate = DateTime.Now,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate
+                EndDate = model.EndDate,
+                Status = "booked"
             };
 
             try
@@ -40,7 +36,6 @@ namespace SpacePlace.Services
 
         }
 
-        //read all
         public IEnumerable<BookingListItem> GetAllBookings()
         {
             using(var ctx = new ApplicationDbContext())
@@ -51,7 +46,6 @@ namespace SpacePlace.Services
                         BookingId = b.Id,
                         SpaceId = b.SpaceId,
                         RenterId = b.RenterId,
-                        
                         BookingDate = b.BookingDate,
                         StartDate = b.StartDate,
                         EndDate = b.EndDate
@@ -60,7 +54,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //read by ID
         public BookingListItem GetBookingById(int id)
         {
             try
@@ -90,7 +83,6 @@ namespace SpacePlace.Services
             }
         }
 
-        //Update
         public bool UpdateBooking(BookingEdit model)
         {
             try
@@ -120,8 +112,7 @@ namespace SpacePlace.Services
             }
         }
 
-        //Delete
-        public bool DeleteBooking(int id) //We want to archive
+        public bool CancelBooking(int id)
         {
             try
             {
@@ -133,8 +124,8 @@ namespace SpacePlace.Services
                     if (bookingEntity == null)
                         return false;
 
-                    
-                    ctx.Bookings.Remove(bookingEntity);
+
+                    bookingEntity.Status = "Cancel";
 
                     return ctx.SaveChanges() == 1;
                 }

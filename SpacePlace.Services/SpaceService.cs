@@ -1,10 +1,10 @@
 ﻿using SpacePlace.Data;
+using SpacePlace.Data.Extensions;
+using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Models.Spaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
@@ -17,11 +17,11 @@ namespace SpacePlace.Services
             _userId = userId;
         }
 
-        public bool CreateSpace(SpaceCreate model)
+        public bool CreateSpace(SpaceCreate model, string userID)
         {
             var newSpace = new Space { 
                 CategoryId = model.CategoryId,
-                OwnerId = _userId,
+                OwnerId = userID,
                 CreatedAt = DateTimeOffset.Now,
                 Legal = model.Legal,
                 Status = "vacant",
@@ -46,13 +46,25 @@ namespace SpacePlace.Services
             }
         }
 
-        public IEnumerable<SpaceListItem> GetAllSpaces()
+        public IEnumerable<SpaceListItem> GetAllSpaces(SpaceSearchParams model)
         {
             try
             {
                 using(var ctx = new ApplicationDbContext())
                 {
-                    return ctx.Spaces
+                    var predicate = PredicateBuilder.True<Space>();
+
+                    if (model.ShowByOwner && model.OwnerId != null)
+                    {
+                        predicate.And(s => s.OwnerId == model.OwnerId);
+                    }
+
+                    if (model.ShowOnlyVacant)
+                        predicate.And(s => s.Status == "vacant");
+                   
+
+                   return ctx.Spaces
+                        .Where(predicate)
                         .Select(s => new SpaceListItem
                         {
                             Category = s.Category.Name,
@@ -90,7 +102,13 @@ namespace SpacePlace.Services
                         Owner = space.SpaceOwner.FullName,
                         Category = space.Category.Name,
                         Status  = space.Status,
-                        CreatedAt = space.CreatedAt
+                        CreatedAt = space.CreatedAt,
+                        AverageAccessibilityRating = space.AverageAccessibilityRating,
+                        AverageCleanlinessRating = space.AverageCleanlinessRating,
+                        AverageEnvironmentRating = space.AverageEnvironmentRating,
+                        AverageLuxuryRating = space.AverageLuxuryRating,
+                        AverageResponsivenessRating = space.AverageResponsivenessRating,
+                        SpaceAmenities = space.SpaceAmenities as List<SpaceAmenityDetails> 
                     };
                 }
             }

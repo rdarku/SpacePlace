@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SpacePlace.Models.SpaceAmenities;
+using System;
+using System.Collections.Generic;
 
 namespace SpacePlace.Models.Spaces
 {
@@ -19,5 +21,17 @@ namespace SpacePlace.Models.Spaces
         public string Owner { get; set; }
 
         public int MaxOccupancy { get; set; }
+
+        public double AverageCleanlinessRating { get; set; }
+
+        public double AverageEnvironmentRating { get; set; }
+
+        public double AverageResponsivenessRating { get; set; }
+
+        public double AverageLuxuryRating { get; set; }
+
+        public double AverageAccessibilityRating { get; set; }
+
+        public ICollection<SpaceAmenityDetails> SpaceAmenities { get; set; }
     }
 }

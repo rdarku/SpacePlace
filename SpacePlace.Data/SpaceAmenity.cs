@@ -10,12 +10,14 @@ namespace SpacePlace.Data
         public int Id { get; set; }
 
         [Required]
+        [Index("SpaceIdAndAmenityID",IsUnique =true, Order = 1)]
         public int SpaceId { get; set; }
 
         [ForeignKey(nameof(SpaceId))]
         public virtual Space Space { get; set; }
 
         [Required]
+        [Index("SpaceIdAndAmenityID", IsUnique = true, Order = 2)]
         public int AmenityId { get; set; }
 
         [ForeignKey(nameof(AmenityId))]
