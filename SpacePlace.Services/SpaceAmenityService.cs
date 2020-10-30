@@ -14,7 +14,8 @@ namespace SpacePlace.Services
             {
                 AmenityId = model.AmenityId,
                 CreatedAt = DateTimeOffset.Now,
-                SpaceId = model.SpaceId
+                SpaceId = model.SpaceId,
+                Id = Guid.NewGuid().ToString()
             };
 
             try
@@ -54,7 +55,7 @@ namespace SpacePlace.Services
             }
         }
 
-        public SpaceAmenityDetails GetSpaceAmenityById(int id)
+        public SpaceAmenityDetails GetSpaceAmenityById(string id)
         {
             try
             {
@@ -106,7 +107,7 @@ namespace SpacePlace.Services
             }
         }
 
-        public bool DeleteSpaceAmenity(int id)
+        public bool DeleteSpaceAmenity(string id)
         {
             try
             {

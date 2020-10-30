@@ -31,7 +31,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response =_service.GetAllRatings(spaceID);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -41,7 +40,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetRatingById(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
     }

@@ -31,7 +31,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetAllCategories();
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -41,7 +40,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response =_service.GetCategoryById(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -51,26 +49,23 @@ namespace SpacePlace.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            CategoryListItem item = _service.GetCategoryById(model.Id);
+            if (item == null)
+                return NotFound();
             if (_service.UpdateCategory(model))
                 return Ok();
-
-            return BadRequest();
+            return InternalServerError();
         }
 
         // delete -- remove
         public IHttpActionResult Delete([FromUri] int id)
         {
             CategoryListItem item = _service.GetCategoryById(id);
-            if(item == null)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("No category with ID = {0}", id)),
-                    ReasonPhrase = "Category ID Not Found"
-                };
-                throw new HttpResponseException(resp);
-            }
-            return Ok(_service.DeleteCategory(id));
+            if (item == null)
+                return NotFound();
+            if (_service.DeleteCategory(id))
+                return Ok();
+            return InternalServerError();
         }
     }
 }

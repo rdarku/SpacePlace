@@ -4,7 +4,7 @@ namespace SpacePlace.Models.SpaceAmenities
 {
     public class SpaceAmenityListItem
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name ="Space Name")]
         public string SpaceName { get; set; }

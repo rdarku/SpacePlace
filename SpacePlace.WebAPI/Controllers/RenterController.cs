@@ -33,7 +33,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetAllRenters();
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -41,11 +40,7 @@ namespace SpacePlace.WebAPI.Controllers
         {
             var response = _service.GetRenterById(id);
             if (response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
-
+                return NotFound();
             return Ok(response);
         }
 

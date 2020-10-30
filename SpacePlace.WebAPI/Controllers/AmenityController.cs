@@ -35,7 +35,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetAllAmenities();
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -45,7 +44,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response =_service.GetAmenityById(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -54,10 +52,8 @@ namespace SpacePlace.WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
             if (_service.UpdateAmenity(model))
                 return Ok();
-
             return BadRequest();
         }
 
@@ -66,16 +62,11 @@ namespace SpacePlace.WebAPI.Controllers
         public IHttpActionResult Delete([FromUri] int id)
         {
             AmenityListItem item = _service.GetAmenityById(id);
-            if(item == null)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                    {
-                        Content = new StringContent(string.Format("No amenity with ID = {0}", id)),
-                        ReasonPhrase = "Amenity ID Not Found"
-                    };
-                throw new HttpResponseException(resp);
-            }
-            return Ok(_service.DeleteAmenity(id));
+            if (item == null)
+                return NotFound();
+            if(_service.DeleteAmenity(id))
+                return Ok();
+            return InternalServerError();
         }
     }
 }

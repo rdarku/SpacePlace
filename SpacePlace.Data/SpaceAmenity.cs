@@ -8,7 +8,7 @@ namespace SpacePlace.Data
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [Index("SpaceIdAndAmenityID",IsUnique =true, Order = 1)]

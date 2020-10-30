@@ -1,4 +1,3 @@
-using SpacePlace.Data;
 using SpacePlace.Models.Bookings;
 using SpacePlace.Services;
 using System.Web.Http;
@@ -59,7 +58,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetBookingByIdWithAmenities(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -70,10 +68,13 @@ namespace SpacePlace.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            BookingListItem item = _service.GetBookingById(model.Id);
+            if (item == null)
+                return NotFound();
+
             if (_service.UpdateBooking(model))
                 return Ok();
-
-            return BadRequest();
+            return InternalServerError();
         }
 
         //Delete -- Remove
@@ -82,15 +83,10 @@ namespace SpacePlace.WebAPI.Controllers
         {
             BookingListItem item = _service.GetBookingById(id);
             if (item == null)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("No booking with ID = {0}", id)),
-                    ReasonPhrase = "Booking ID Not Found"
-                };
-                throw new HttpResponseException(resp);
-            }
-            return Ok(_service.CancelBooking(id));
+                return NotFound();
+            if(_service.CancelBooking(id))
+                return Ok();
+            return InternalServerError();
         }
     }
 }

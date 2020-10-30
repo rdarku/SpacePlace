@@ -13,7 +13,6 @@ namespace SpacePlace.WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
             return Ok(_service.CreateSpaceAmenity(model));
         }
 
@@ -22,16 +21,14 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetAllSpaceAmmenities();
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
-        public IHttpActionResult Get([FromUri] int id)
+        public IHttpActionResult Get([FromUri] string id)
         {
             var response = _service.GetSpaceAmenityById(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -39,13 +36,23 @@ namespace SpacePlace.WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            var response = _service.GetSpaceAmenityById(model.Id);
+            if (response == null)
+                return NotFound();
 
-            return Ok(_service.UpdateSpaceAmenity(model));
+            if (_service.UpdateSpaceAmenity(model))
+                return Ok();
+            return InternalServerError();
         }
 
-        public IHttpActionResult Delete([FromUri] int id)
+        public IHttpActionResult Delete([FromUri] string id)
         {
-            return Ok(_service.DeleteSpaceAmenity(id));
+            var response = _service.GetSpaceAmenityById(id);
+            if (response == null)
+                return NotFound();
+            if (_service.DeleteSpaceAmenity(id))
+                return Ok();
+            return InternalServerError();
         }
     }
 }

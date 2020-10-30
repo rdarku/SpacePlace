@@ -5,7 +5,7 @@ namespace SpacePlace.Models.SpaceAmenities
     public class SpaceAmenityEdit
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         public int SpaceId { get; set; }

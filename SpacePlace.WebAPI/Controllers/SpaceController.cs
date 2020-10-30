@@ -49,13 +49,23 @@ namespace SpacePlace.WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            var response = _service.GetSpaceById(model.Id);
+            if (response == null)
+                return NotFound();
 
-            return Ok(_service.UpdateSpace(model));
+            if (_service.UpdateSpace(model))
+                return Ok();
+            return InternalServerError();
         }
 
         public IHttpActionResult Delete([FromUri] int id)
         {
-            return Ok(_service.ArchiveSpace(id));
+            var response = _service.GetSpaceById(id);
+            if (response == null)
+                return NotFound();
+            if (_service.ArchiveSpace(id))
+                return Ok();
+            return InternalServerError();
         }
     }
 }
