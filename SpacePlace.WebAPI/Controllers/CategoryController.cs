@@ -68,6 +68,16 @@ namespace SpacePlace.WebAPI.Controllers
         // delete -- remove
         public IHttpActionResult Delete([FromUri] int id)
         {
+            CategoryListItem item = _service.GetCategoryById(id);
+            if(item == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No category with ID = {0}", id)),
+                    ReasonPhrase = "Category ID Not Found"
+                };
+                throw new HttpResponseException(resp);
+            }
             return Ok(_service.DeleteCategory(id));
         }
     }

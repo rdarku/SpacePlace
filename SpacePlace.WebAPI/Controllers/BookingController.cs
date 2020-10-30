@@ -67,6 +67,16 @@ namespace SpacePlace.WebAPI.Controllers
         //Delete -- Remove
         public IHttpActionResult Delete([FromUri]int id)
         {
+            BookingListItem item = _service.GetBookingById(id);
+            if (item == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No booking with ID = {0}", id)),
+                    ReasonPhrase = "Booking ID Not Found"
+                };
+                throw new HttpResponseException(resp);
+            }
             return Ok(_service.CancelBooking(id));
         }
     }
