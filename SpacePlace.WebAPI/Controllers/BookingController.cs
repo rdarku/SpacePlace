@@ -43,20 +43,20 @@ namespace SpacePlace.WebAPI.Controllers
         }
 
         //Get -- By ID
-        [HttpGet]
-        public IHttpActionResult Get([FromUri] int id)
-        {
-            var response = _service.GetBookingById(id);
-            if(response == null)
-            {
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
-            }
+        //[HttpGet]
+        //public IHttpActionResult Get([FromUri] int id)
+        //{
+        //    var response = _service.GetBookingById(id);
+        //    if(response == null)
+        //    {
+        //        throw new HttpResponseException(
+        //            Request.CreateErrorResponse(HttpStatusCode.NotFound, "No record found"));
+        //    }
 
-            return Ok(response);
-        }
+        //    return Ok(response);
+        //}
 
-        // GET amenities with booking ID
+        //// GET amenities with booking ID
         [HttpGet]
         public IHttpActionResult GetW([FromUri] int id)
         {
