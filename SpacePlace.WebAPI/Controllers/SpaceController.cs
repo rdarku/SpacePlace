@@ -8,14 +8,7 @@ namespace SpacePlace.WebAPI.Controllers
     [Authorize]
     public class SpaceController : ApiController
     {
-        private readonly SpaceService _service;
-
-        public SpaceController()
-        {
-            var userId = User.Identity.GetUserId();
-
-            _service = new SpaceService(userId);
-        }
+        private readonly SpaceService _service = new SpaceService();
 
         public IHttpActionResult Post([FromBody] SpaceCreate model)
         {
@@ -23,8 +16,9 @@ namespace SpacePlace.WebAPI.Controllers
 
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
-
-            return Ok(_service.CreateSpace(model, user));
+            if(_service.CreateSpace(model, user))
+                return Ok();
+            return InternalServerError();
         }
 
         public IHttpActionResult Get([FromUri] SpaceSearchParams searchParams) 
@@ -32,7 +26,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response =_service.GetAllSpaces(searchParams);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -41,7 +34,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetSpaceById(id);
             if (response == null)
                 return NotFound();
-
             return Ok(response);
         }
 
@@ -52,7 +44,6 @@ namespace SpacePlace.WebAPI.Controllers
             var response = _service.GetSpaceById(model.Id);
             if (response == null)
                 return NotFound();
-
             if (_service.UpdateSpace(model))
                 return Ok();
             return InternalServerError();

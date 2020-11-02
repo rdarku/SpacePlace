@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.SpaceAmenities;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,7 @@ namespace SpacePlace.Services
             {
                 AmenityId = model.AmenityId,
                 CreatedAt = DateTimeOffset.Now,
-                SpaceId = model.SpaceId,
-                Id = Guid.NewGuid().ToString()
+                SpaceId = model.SpaceId
             };
 
             try
@@ -29,7 +29,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -43,6 +43,7 @@ namespace SpacePlace.Services
                     return ctx.SpaceAmenities
                         .Select(s => new SpaceAmenityListItem
                         {
+                            Id = s.Id,
                             AmenityName = s.Amenity.Name,
                             SpaceName = s.Space.Name
                         }).ToList();
@@ -50,24 +51,26 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
 
-        public SpaceAmenityDetails GetSpaceAmenityById(string id)
+        public SpaceAmenityDetails GetSpaceAmenityById(int id)
         {
             try
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == id)
+                    var spaceAmenity = ctx.SpaceAmenities
+                        .Where(s => s.Id == id)
                         .FirstOrDefault();
 
                     if (spaceAmenity == null) return null;
 
                     return new SpaceAmenityDetails()
                     {
+                        Id = spaceAmenity.Id,
                         AmenityId = spaceAmenity.AmenityId,
                         AmenityName = spaceAmenity.Amenity.Name,
                         Description = spaceAmenity.Amenity.Description,
@@ -78,7 +81,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
@@ -89,7 +92,8 @@ namespace SpacePlace.Services
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.AmenityId)
+                    var spaceAmenity = ctx.SpaceAmenities
+                        .Where(s => s.SpaceId == model.SpaceId && s.AmenityId == model.AmenityId)
                         .FirstOrDefault();
 
                     if (spaceAmenity == null) return false;
@@ -102,18 +106,19 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
 
-        public bool DeleteSpaceAmenity(string id)
+        public bool DeleteSpaceAmenity(int id)
         {
             try
             {
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var spaceAmenity = ctx.SpaceAmenities.Where(s => s.Id == id)
+                    var spaceAmenity = ctx.SpaceAmenities
+                        .Where(s => s.Id == id)
                         .FirstOrDefault();
 
                     ctx.SpaceAmenities.Remove(spaceAmenity);
@@ -123,7 +128,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }

@@ -9,23 +9,15 @@ namespace SpacePlace.WebAPI.Controllers
     {
         private readonly RatingService _service = new RatingService();
 
-        // post -- create
         public IHttpActionResult Post(RatingCreate model)
         {
-            if (ModelState.IsValid)
-            {
-                if (_service.CreateRating(model))
-                    return Ok();
-
-                return InternalServerError();
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);          
+            if (_service.CreateRating(model))
+                return Ok();
+            return InternalServerError();
         }
 
-        // get -- list
         public IHttpActionResult Get([FromUri] RatingSearchParams spaceID)
         {
             var response =_service.GetAllRatings(spaceID);
@@ -34,7 +26,6 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        // get -- by Id
         public IHttpActionResult Get([FromUri] int id)
         {
             var response = _service.GetRatingById(id);

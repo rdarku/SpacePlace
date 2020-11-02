@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.Bookings;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,9 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
-
         }
 
         public IEnumerable<BookingListItem> GetAllBookings()
@@ -54,7 +54,7 @@ namespace SpacePlace.Services
             }
         }
 
-        public BookingListItem GetBookingById(int id)
+        public BookingDetails GetBookingById(int id)
         {
             try
             {
@@ -64,27 +64,29 @@ namespace SpacePlace.Services
                         .FirstOrDefault();
 
                     return (foundBooking != null) ?
-                        new BookingListItem()
+                        new BookingDetails()
                         {
-                            BookingId = foundBooking.Id,
+                            Id = foundBooking.Id,
                             SpaceId = foundBooking.SpaceId,
+                            Space = foundBooking.Space.Name,
                             RenterId = foundBooking.RenterId,
+                            Renter = foundBooking.Renter.RenterUser.FullName,
                             BookingDate = foundBooking.BookingDate,
                             StartDate = foundBooking.StartDate,
-                            EndDate = foundBooking.EndDate
+                            EndDate = foundBooking.EndDate,
+                            Status = foundBooking.Status
                         }
                         : null;
                 }
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
 
         //get booking with amenities
-
         public Booking GetBookingByIdWithAmenities(int id)
         {
             using (var ctx = new ApplicationDbContext())
@@ -102,7 +104,6 @@ namespace SpacePlace.Services
                                    StartDate = bo.StartDate,
                                    Status = bo.Status
                                }).FirstOrDefault();
-        
                 return booking;
             }
         }
@@ -115,7 +116,6 @@ namespace SpacePlace.Services
                 {
                     var bookingEntity = ctx.Bookings.Where(b => b.Id == model.Id)
                         .FirstOrDefault();
-
                     if (bookingEntity == null)
                         return false;
 
@@ -126,12 +126,11 @@ namespace SpacePlace.Services
                     bookingEntity.EndDate = model.EndDate;
 
                     return ctx.SaveChanges() == 1;
-
                 }
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -144,19 +143,16 @@ namespace SpacePlace.Services
                 {
                     var bookingEntity = ctx.Bookings.Where(b => b.Id == id)
                         .FirstOrDefault();
-
                     if (bookingEntity == null)
                         return false;
 
-
                     bookingEntity.Status = "Cancel";
-
                     return ctx.SaveChanges() == 1;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }

@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.Renters;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e); ;
                 return false;
             }
         }
@@ -45,18 +46,27 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
-        public Renter GetRenterById(string id)
+
+        public RenterListItem GetRenterById(int id)
         {
-            using (var ctx = new ApplicationDbContext())
+            try
             {
-                var renter = (from r in ctx.Renters.Where(r => r.RenterId == id)
-                               select new Renter()
-                               {
-                                   RenterId = r.RenterId,
-
-                               }).FirstOrDefault();
-
-                return renter;
+                using (var ctx = new ApplicationDbContext())
+                {
+                    return ctx.Renters
+                        .Where(r => r.Id == id)
+                        .Select( r => new RenterListItem()
+                        {
+                            Id = r.Id,
+                            Renter = r.RenterUser.FullName,
+                            CreatedAt = r.CreatedAt
+                        }).FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                SentrySdk.CaptureException(e);
+                return null;
             }
         }
     }

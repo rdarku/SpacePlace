@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Models.Bookings
 {
@@ -12,13 +8,13 @@ namespace SpacePlace.Models.Bookings
 
         public int SpaceId { get; set; }
 
+        public string Space { get; set; }
+
         public int RenterId { get; set; }
 
-        public int Duration { get; set; }
+        public string Renter { get; set; }
 
-        public string DurationUnit { get; set; }
-
-        public string Stauts { get; set; }
+        public string Status { get; set; }
 
         public DateTime BookingDate { get; set; }
 

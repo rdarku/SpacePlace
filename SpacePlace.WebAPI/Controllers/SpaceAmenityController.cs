@@ -1,5 +1,8 @@
 ﻿using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Services;
+using System;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -13,22 +16,27 @@ namespace SpacePlace.WebAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            return Ok(_service.CreateSpaceAmenity(model));
+            if (_service.CreateSpaceAmenity(model))
+                return Ok();
+            return InternalServerError();
         }
 
         public IHttpActionResult Get()
         {
             var response = _service.GetAllSpaceAmmenities();
             if (response == null)
-                return NotFound();
+                return (IHttpActionResult)Request.CreateResponse(
+                    HttpStatusCode.NotFound,"No SpaceAmenity found");
             return Ok(response);
         }
 
-        public IHttpActionResult Get([FromUri] string id)
+        public IHttpActionResult Get([FromUri] int id)
         {
             var response = _service.GetSpaceAmenityById(id);
             if (response == null)
-                return NotFound();
+                return (IHttpActionResult)Request.CreateResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("SpaceAmenity with ID = {0} not found", id));
             return Ok(response);
         }
 
@@ -38,18 +46,21 @@ namespace SpacePlace.WebAPI.Controllers
                 return BadRequest(ModelState);
             var response = _service.GetSpaceAmenityById(model.Id);
             if (response == null)
-                return NotFound();
-
+                return (IHttpActionResult)Request.CreateResponse(
+                    HttpStatusCode.NotFound, 
+                    string.Format("SpaceAmenity with ID = {0} not found", model.Id));
             if (_service.UpdateSpaceAmenity(model))
                 return Ok();
             return InternalServerError();
         }
 
-        public IHttpActionResult Delete([FromUri] string id)
+        public IHttpActionResult Delete([FromUri] int id)
         {
             var response = _service.GetSpaceAmenityById(id);
             if (response == null)
-                return NotFound();
+                return (IHttpActionResult)Request.CreateResponse(
+                    HttpStatusCode.NotFound,
+                    string.Format("SpaceAmenity with ID = {0} not found", id.ToString()));
             if (_service.DeleteSpaceAmenity(id))
                 return Ok();
             return InternalServerError();

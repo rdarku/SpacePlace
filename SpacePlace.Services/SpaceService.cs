@@ -1,22 +1,17 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Data.Extensions;
 using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Models.Spaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SpacePlace.Services
 {
     public class SpaceService
     {
-        private readonly string _userId;
-
-        public SpaceService(string userId)
-        {
-            _userId = userId;
-        }
-
         public bool CreateSpace(SpaceCreate model, string userID)
         {
             var newSpace = new Space { 
@@ -35,13 +30,12 @@ namespace SpacePlace.Services
                 using(var ctx = new ApplicationDbContext())
                 {
                     ctx.Spaces.Add(newSpace);
-
                     return ctx.SaveChanges() == 1;
                 }
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -62,7 +56,6 @@ namespace SpacePlace.Services
                     if (model.ShowOnlyVacant)
                         predicate.And(s => s.Status == "vacant");
                    
-
                    return ctx.Spaces
                         .Where(predicate)
                         .Select(s => new SpaceListItem
@@ -77,7 +70,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
@@ -89,6 +82,8 @@ namespace SpacePlace.Services
                 using (var ctx = new ApplicationDbContext())
                 {
                     var space = ctx.Spaces.Where(s => s.Id == id)
+                        .Include( s => s.SpaceAmenities)
+                        .Include(s => s.Ratings)
                         .FirstOrDefault();
 
                     if (space == null) return null;
@@ -108,13 +103,16 @@ namespace SpacePlace.Services
                         AverageEnvironmentRating = space.AverageEnvironmentRating,
                         AverageLuxuryRating = space.AverageLuxuryRating,
                         AverageResponsivenessRating = space.AverageResponsivenessRating,
-                        SpaceAmenities = space.SpaceAmenities as List<SpaceAmenityDetails> 
+                        SpaceAmenities = space.SpaceAmenities as ICollection<SpaceAmenityDetails>,
+                        AmenityCount = space.SpaceAmenities.Count,
+                        FirstAmenity = space.SpaceAmenities.First().Amenity.Name
+
                     };
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
@@ -142,7 +140,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -155,15 +153,13 @@ namespace SpacePlace.Services
                 {
                     var space = ctx.Spaces.Where(s => s.Id == id)
                         .FirstOrDefault();
-
                     space.Status = "archived";
-
                     return ctx.SaveChanges() == 1;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }

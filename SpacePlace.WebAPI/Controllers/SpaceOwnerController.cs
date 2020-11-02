@@ -10,24 +10,17 @@ namespace SpacePlace.WebAPI.Controllers
     {
         private readonly SpaceOwnerService _service = new SpaceOwnerService();
         
-        // post -- create
         public IHttpActionResult Post()
         {
             SpaceOwnerCreate model = new SpaceOwnerCreate { SpaceOwnerId = User.Identity.GetUserId() };
 
-            if (ModelState.IsValid)
-            {
-                if (_service.CreateSpaceOwner(model))
-                    return Ok();
-                return InternalServerError();
-            }
-            else
-            {
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
+            if (_service.CreateSpaceOwner(model))
+                return Ok();
+            return InternalServerError();
         }
 
-        //get -- list
         public IHttpActionResult Get()
         {
             var response = _service.GetAllOwners();
@@ -36,7 +29,7 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        public IHttpActionResult Get([FromUri] string id)
+        public IHttpActionResult Get([FromUri] int id)
         {
             var response = _service.GetOwnerById(id);
             if (response == null)

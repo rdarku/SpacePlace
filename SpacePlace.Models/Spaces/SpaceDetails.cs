@@ -1,4 +1,5 @@
-﻿using SpacePlace.Models.SpaceAmenities;
+﻿using SpacePlace.Data;
+using SpacePlace.Models.SpaceAmenities;
 using System;
 using System.Collections.Generic;
 
@@ -33,5 +34,9 @@ namespace SpacePlace.Models.Spaces
         public double AverageAccessibilityRating { get; set; }
 
         public ICollection<SpaceAmenityDetails> SpaceAmenities { get; set; }
+
+        public int AmenityCount { get; set; }
+
+        public string FirstAmenity { get; set; }
     }
 }

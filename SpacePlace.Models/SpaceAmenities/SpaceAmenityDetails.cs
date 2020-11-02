@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpacePlace.Models.SpaceAmenities
 {
     public class SpaceAmenityDetails
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public int SpaceId { get; set; }

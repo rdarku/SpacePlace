@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.SpaceOwner;
 using SpacePlace.Models.SpaceOwners;
 using System;
@@ -27,7 +28,7 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -46,18 +47,19 @@ namespace SpacePlace.Services
                     ).ToList();
             }
         }
-        public SpaceOwner GetOwnerById(string id)
+        public SpaceOwnerListItem GetOwnerById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var SpaceOwner = (from r in ctx.SpaceOwners.Where(r => r.SpaceOwnerId == id)
-                              select new SpaceOwner()
-                              {
-                                  SpaceOwnerId = r.SpaceOwnerId,
-
-                              }).FirstOrDefault();
-
-                return SpaceOwner;
+                return ctx.SpaceOwners
+                    .Where(r => r.Id == id)
+                    .Select(r => new SpaceOwnerListItem()
+                        {
+                        Id = r.Id,
+                        SpaceOwner = r.Owner.FullName,
+                        CreatedAt = r.CreatedAt
+                    })
+                    .FirstOrDefault();
             }
         }
 

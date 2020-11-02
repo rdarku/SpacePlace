@@ -10,24 +10,17 @@ namespace SpacePlace.WebAPI.Controllers
     {
         private readonly RenterService _service = new RenterService();
 
-        // post -- create
         public IHttpActionResult Post()
         {
             RenterCreate model = new RenterCreate { RenterID = User.Identity.GetUserId() };
 
-            if (ModelState.IsValid)
-            {
-                if (_service.CreateRenter(model))
-                    return Ok();
-                return InternalServerError();
-            }
-            else
-            {
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
+            if (_service.CreateRenter(model))
+                return Ok();
+            return InternalServerError();
         }
 
-        //get -- list
         public IHttpActionResult Get()
         {
             var response = _service.GetAllRenters();
@@ -36,7 +29,7 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        public IHttpActionResult Get([FromUri] string id)
+        public IHttpActionResult Get([FromUri] int id)
         {
             var response = _service.GetRenterById(id);
             if (response == null)

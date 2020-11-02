@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.Amenities;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
                 
@@ -71,7 +72,7 @@ namespace SpacePlace.Services
             }
             catch(Exception e) 
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
@@ -84,7 +85,6 @@ namespace SpacePlace.Services
                 {
                     var amenityEntity = ctx.Amenities.Where(a => a.Id == model.Id)
                         .FirstOrDefault();
-
                     if (amenityEntity == null)
                         return false;
 
@@ -97,7 +97,7 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -110,7 +110,6 @@ namespace SpacePlace.Services
                 {
                     var amenityEntity = ctx.Amenities.Where(a => a.Id == id)
                         .FirstOrDefault();
-
                     if (amenityEntity == null)
                         return false;
 
@@ -118,16 +117,18 @@ namespace SpacePlace.Services
                     if(amenityEntity.SpaceAmenities == null)
                     {
                         ctx.Amenities.Remove(amenityEntity);
-
                         return ctx.SaveChanges() == 1;
                     }
-
+                    else
+                    {
+                        SentrySdk.CaptureMessage($"Cannot delete Amenity with ID:{id} because it is in use");
+                    }
                     return false;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }

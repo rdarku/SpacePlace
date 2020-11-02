@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.Categories;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -56,7 +57,6 @@ namespace SpacePlace.Services
                 {
                     var foundCategory = ctx.Categories.Where(c => c.Id == id)
                         .FirstOrDefault();
-
                     return (foundCategory != null) ?
                         new CategoryListItem() { 
                             CategoryId = foundCategory.Id,
@@ -65,12 +65,11 @@ namespace SpacePlace.Services
                             CreatedAt = foundCategory.CreatedAt
                         }
                         : null;
-
                 }
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }
@@ -83,7 +82,6 @@ namespace SpacePlace.Services
                 {
                     var categoryEntity = ctx.Categories.Where(c => c.Id == model.Id)
                         .FirstOrDefault();
-
                     if (categoryEntity == null)
                         return false;
 
@@ -96,7 +94,7 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
@@ -109,7 +107,6 @@ namespace SpacePlace.Services
                 {
                     var categoryEntity = ctx.Categories.Where(c => c.Id == id)
                         .FirstOrDefault();
-
                     if (categoryEntity == null)
                         return false;
 
@@ -117,8 +114,11 @@ namespace SpacePlace.Services
                     if(categoryEntity.Spaces == null)
                     {
                         ctx.Categories.Remove(categoryEntity);
-
                         return ctx.SaveChanges() == 1;
+                    }
+                    else
+                    {
+                        SentrySdk.CaptureMessage($"Cannot delete Category with ID:{id} because it is in use");
                     }
 
                     return false;
@@ -126,7 +126,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }

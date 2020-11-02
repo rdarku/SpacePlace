@@ -1,10 +1,5 @@
-using SpacePlace.Data;
 using SpacePlace.Models.Amenities;
 using SpacePlace.Services;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-
 using System.Web.Http;
 
 namespace SpacePlace.WebAPI.Controllers
@@ -14,22 +9,15 @@ namespace SpacePlace.WebAPI.Controllers
     {
         private readonly AmenityService _service = new AmenityService();
 
-        //Post -- Create
         public IHttpActionResult Post(AmenityCreate model)
         {
-            if (ModelState.IsValid)
-            {           
-                if (_service.CreateAmenity(model))
-                    return Ok();
-                return InternalServerError();
-            }
-            else
-            {
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            }
+            if (_service.CreateAmenity(model))
+                return Ok();
+            return InternalServerError();
         }
 
-        //Get -- <List>
         public IHttpActionResult Get()
         {
             var response = _service.GetAllAmenities();
@@ -38,7 +26,6 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        //Get -- By ID
         public IHttpActionResult Get([FromUri] int id)
         {
             var response =_service.GetAmenityById(id);
@@ -47,7 +34,6 @@ namespace SpacePlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        //Put -- Update
         public IHttpActionResult Put([FromBody] AmenityEdit model)
         {
             if (!ModelState.IsValid)
@@ -57,8 +43,6 @@ namespace SpacePlace.WebAPI.Controllers
             return BadRequest();
         }
 
-
-        //Delete -- Remove
         public IHttpActionResult Delete([FromUri] int id)
         {
             AmenityListItem item = _service.GetAmenityById(id);

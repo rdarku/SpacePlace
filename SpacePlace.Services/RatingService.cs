@@ -1,4 +1,5 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.Ratings;
 using System;
 using System.Collections.Generic;
@@ -8,35 +9,35 @@ namespace SpacePlace.Services
 {
     public class RatingService
     {
-            public bool CreateRating(RatingCreate model)
+        public bool CreateRating(RatingCreate model)
+        {
+            var newRating = new Rating
             {
-                var newRating = new Rating
-                {
-                    Comments = model.Comments,
-                    CleanlinessRating = model.CleanlinessRating,
-                    EnvironmentRating = model.EnvironmentRating,
-                    ResponsivenessRating = model.ResponsivenessRating,
-                    LuxuryRating = model.LuxuryRating,
-                    AccessibilityRating = model.AccessibilityRating,
-                    RenterId = model.RenterId,
-                    SpaceId = model.SpaceId
-                };
+                Comments = model.Comments,
+                CleanlinessRating = model.CleanlinessRating,
+                EnvironmentRating = model.EnvironmentRating,
+                ResponsivenessRating = model.ResponsivenessRating,
+                LuxuryRating = model.LuxuryRating,
+                AccessibilityRating = model.AccessibilityRating,
+                RenterId = model.RenterId,
+                SpaceId = model.SpaceId
+            };
 
-                try
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
                 {
-                    using (var ctx = new ApplicationDbContext())
-                    {
-                        ctx.Ratings.Add(newRating);
+                    ctx.Ratings.Add(newRating);
 
-                        return ctx.SaveChanges() == 1;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
+                    return ctx.SaveChanges() == 1;
                 }
             }
+            catch (Exception e)
+            {
+                SentrySdk.CaptureException(e);
+                return false;
+            }
+        }
 
         public IEnumerable<RatingListItem> GetAllRatings(RatingSearchParams model)
         {
@@ -85,7 +86,7 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return null;
             }
         }

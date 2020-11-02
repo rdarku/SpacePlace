@@ -30,11 +30,5 @@ namespace SpacePlace.Data
 
         [Required]
         public DateTime EndDate { get; set; }
-
-        public int AmenityId { get; set; }
-
-        [ForeignKey(nameof(AmenityId))]
-        public virtual Amenity Amenity { get; set; }
-
     }
 }
