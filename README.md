@@ -32,7 +32,7 @@
 ### Built With
 Framework, plug ins etc.
 * [Sentry.IO](https://sentry.io)      Exception handling to use within the application
-* [Swagger Client Interface](https://(baseurl/swagger))  
+* [Swagger Client Interface](https://swagger.com)  
 * [Swagger API](https://swagger.com)  API testing and development
 * [GitHub](https://github.com)        Team hub to work on the project together  
 * [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.
@@ -44,8 +44,9 @@ Framework, plug ins etc.
 2. Open up Visual Studio and open the .sln file
 3. Set the start up project as Space Place.WebAPI
 4. There is not seed data so this data would be needed first.  Amenities, Categories, Spaces, and Renters must be added.
-5.  Create these using the APIs themselves.
+5.  Create requirements in 4 using APIs themselves.
 6.  Swagger can be used to run through each table and test each item.
+7.  Swagger Client Interface - Swagger front end is available at baseurl/swagger
 
 <!-- OPEN ISSUES -->
 ## Usage
