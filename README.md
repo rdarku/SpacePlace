@@ -6,7 +6,7 @@
     <img src="/assets.SpaceRoom.png" alt="SpacePlaceRoom">  <!--images here for space place project--->
 </a>
     <p align="center">
-    WE WILL COME UP WITH SOME COOL STUFF HERE!
+    Space Place is the place to rent out spaces and find spaces to rent.  From an apartment to an office space, or even a few days to a few hours of rental options.  
     <br />
   </p>
 </p>
@@ -15,13 +15,17 @@
 ## Table of Contents
 * [About the Project](#About_The_Space_Place_Project)
 * [Built With](#built-with)
-* [Project Examples](#Project_Examples)
+* [Project](#Project)
 * [Usage](#usage)
 * [Developers](#developers)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Space Place Project
-* Discuss here anything we want to share about our project
+* Space Place was developed as a team to fill the ongoing need of renting spaces which could take the form of a house, a small place such as a playground, a room, an office space.   With COVID-19 and so much working from home currently in the world, we felt there was a need that exists in which more and more people are needing to find a place just to share such as an office space to get away from there everyday location even for a few hours. 
+
+* Space Place was tested using Swagger and Sentry.IO.    Trello was such a huge part of this project for our team.  Trello allows the team to share thoughts, stay organized, come up with user stories, epics, cards, and action items.  Our team used Trello to show each task needed to be completed each day along with future plans.   
+
+* As a team we came up with custom graphics for our design, custom API end points, and documentation that can show the advantages of using this API.  
 
 <!-- BUILT WITH -->
 ### Built With
@@ -29,15 +33,16 @@ Framework, plug ins etc.
 * [Sentry.IO](https://sentry.io)      Exception handling to use within the application
 * [Swagger API](https://swagger.com)  API testing and development
 * [GitHub](https://github.com)        Team hub to work on the project together  
-* [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.  
+* [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.
+* [Visual Studio](https://visualstudio.com)  
 
 <!-- PROJECT EXAMPLES -->
-## Project Examples
-will add project examples,screen captures etc. here
+## Project 
+
 
 <!-- OPEN ISSUES -->
 ## Usage
-Working as planned at this time.  Feature requests updated in the future.
+Working as planned at this time.  Feature requests updated in the future.  Feel free to share any thoughts for feature requests.
 
 <!-- DEVELOPERS -->
 ## Developers
