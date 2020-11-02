@@ -16,6 +16,7 @@
 * [About the Project](#About_The_Space_Place_Project)
 * [Built With](#built-with)
 * [Project](#Project)
+* [Directions](#Directions)
 * [Usage](#usage)
 * [Developers](#developers)
 
@@ -36,9 +37,14 @@ Framework, plug ins etc.
 * [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.
 * [Visual Studio](https://visualstudio.com)  
 
-<!-- PROJECT EXAMPLES -->
-## Project 
-
+<!-- DIRECTIONS -->
+## Directions
+1. Download .sln file from GitHub
+2. Set the startup project
+3. Open up Visual Studio and open the .sln file
+4. Set the start up project.
+5. There is not seed data so this data would be needed first.  Amenities, Categories, Spaces, and Renters must be added.
+6.  Swagger can be used to run through each table and test each item
 
 <!-- OPEN ISSUES -->
 ## Usage
