@@ -3,7 +3,7 @@
 <p align="center">
   <h3 align="center">SPACE PLACE</h3>
 <a>
-    <img src="/assets.SpaceRoom.png" alt="SpacePlaceRoom">  <!--images here for space place project--->
+    <img src="./assets.SpaceRoom.png" alt="SpacePlaceRoom">  <!--images here for space place project--->
 </a>
     <p align="center">
     Space Place is the place to rent out spaces and find spaces to rent.  From an apartment to an office space, or even a few days to a few hours of rental options.  
