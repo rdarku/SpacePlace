@@ -15,11 +15,9 @@
 ## Table of Contents
 * [About the Project](#About_The_Space_Place_Project)
 * [Built With](#built-with)
+* [Project Examples](#Project_Examples)
 * [Usage](#usage)
-* [Roadmap](#roadmap)
 * [Developers](#developers)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Space Place Project
@@ -28,17 +26,18 @@
 <!-- BUILT WITH -->
 ### Built With
 Framework, plug ins etc.
-* [Swagger API](https://getbootstrap.com)
-* [GitHub](https://github.com)
-* [Trello](https://trello.com)
+* [Sentry.IO](https://sentry.io)      Exception handling to use within the application
+* [Swagger API](https://swagger.com)  API testing and development
+* [GitHub](https://github.com)        Team hub to work on the project together  
+* [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.  
 
 <!-- PROJECT EXAMPLES -->
-## Project
+## Project Examples
 will add project examples,screen captures etc. here
 
 <!-- OPEN ISSUES -->
-## Usage Issues
-We can change this here or add any open issues
+## Usage
+Working as planned at this time.  Feature requests updated in the future.
 
 <!-- DEVELOPERS -->
 ## Developers
@@ -46,9 +45,4 @@ We can change this here or add any open issues
 2. Brandon Thompson
 3. Lisa Yankey
 4. Jacob Childers
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-** 
-
 
