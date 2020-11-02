@@ -45,7 +45,7 @@ Framework, plug ins etc.
 3. Set the start up project as Space Place.WebAPI
 4. There is not seed data so this data would be needed first.  Amenities, Categories, Spaces, and Renters must be added.
 5.  Create these using the APIs themselves.
-5.  Swagger can be used to run through each table and test each item.
+6.  Swagger can be used to run through each table and test each item.
 
 <!-- OPEN ISSUES -->
 ## Usage
