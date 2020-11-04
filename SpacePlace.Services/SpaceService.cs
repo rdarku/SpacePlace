@@ -1,6 +1,6 @@
-﻿using Sentry;
+﻿using AutoMapper;
+using Sentry;
 using SpacePlace.Data;
-using SpacePlace.Data.Extensions;
 using SpacePlace.Models.SpaceAmenities;
 using SpacePlace.Models.Spaces;
 using System;
@@ -12,6 +12,21 @@ namespace SpacePlace.Services
 {
     public class SpaceService
     {
+        private readonly IMapper _mapper;
+
+        public SpaceService()
+        {
+            var config = new MapperConfiguration( cfg =>
+            {
+                cfg.CreateMap<SpaceAmenity, SpaceAmenityDetails>()
+                .ForMember(s => s.AmenityName, opt => opt.MapFrom(m => m.Amenity.Name))
+                .ForMember(s => s.SpaceName, opt => opt.MapFrom(m => m.Space.Name))
+                .ReverseMap();
+            });
+
+            _mapper = config.CreateMapper();
+        }
+
         public bool CreateSpace(SpaceCreate model, string userID)
         {
             var newSpace = new Space { 
@@ -46,26 +61,22 @@ namespace SpacePlace.Services
             {
                 using(var ctx = new ApplicationDbContext())
                 {
-                    var predicate = PredicateBuilder.True<Space>();
-
-                    if (model.ShowByOwner && model.OwnerId != null)
-                    {
-                        predicate.And(s => s.OwnerId == model.OwnerId);
-                    }
+                    var spaces = ctx.Spaces.AsQueryable();
 
                     if (model.ShowOnlyVacant)
-                        predicate.And(s => s.Status == "vacant");
-                   
-                   return ctx.Spaces
-                        .Where(predicate)
-                        .Select(s => new SpaceListItem
-                        {
-                            Category = s.Category.Name,
-                            Status = s.Status,
-                            CreatedAt = s.CreatedAt,
-                            Id = s.Id,
-                            Name = s.Name
-                        }).ToList();
+                        spaces = spaces.Where(s => s.Status == "vacant");
+
+                    if (model.ShowByOwner && model.OwnerId != null)
+                        spaces = spaces.Where(s => s.OwnerId == model.OwnerId);
+
+                    return spaces.Select(s => new SpaceListItem
+                    {
+                        Category = s.Category.Name,
+                        Status = s.Status,
+                        CreatedAt = s.CreatedAt,
+                        Id = s.Id,
+                        Name = s.Name
+                    }).ToList();
                 }
             }
             catch (Exception e)
@@ -103,10 +114,7 @@ namespace SpacePlace.Services
                         AverageEnvironmentRating = space.AverageEnvironmentRating,
                         AverageLuxuryRating = space.AverageLuxuryRating,
                         AverageResponsivenessRating = space.AverageResponsivenessRating,
-                        SpaceAmenities = space.SpaceAmenities as ICollection<SpaceAmenityDetails>,
-                        AmenityCount = space.SpaceAmenities.Count,
-                        FirstAmenity = space.SpaceAmenities.First().Amenity.Name
-
+                        SpaceAmenities = _mapper.Map<ICollection<SpaceAmenityDetails>>(space.SpaceAmenities)
                     };
                 }
             }

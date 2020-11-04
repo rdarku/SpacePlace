@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpacePlace.Models.Spaces;
+using System;
 
 namespace SpacePlace.Models.Bookings
 {
@@ -8,7 +9,7 @@ namespace SpacePlace.Models.Bookings
 
         public int SpaceId { get; set; }
 
-        public string Space { get; set; }
+        public SpaceDetails Space { get; set; }
 
         public int RenterId { get; set; }
 

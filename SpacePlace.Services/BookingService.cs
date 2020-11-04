@@ -1,14 +1,38 @@
-﻿using Sentry;
+﻿using AutoMapper;
+using Sentry;
 using SpacePlace.Data;
 using SpacePlace.Models.Bookings;
+using SpacePlace.Models.SpaceAmenities;
+using SpacePlace.Models.Spaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace SpacePlace.Services
 {
     public class BookingService
     {
+        private readonly IMapper _mapper;
+
+        public BookingService()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<SpaceAmenity, SpaceAmenityDetails>()
+                .ForMember(s => s.AmenityName, opt => opt.MapFrom(m => m.Amenity.Name))
+                .ForMember(s => s.SpaceName, opt => opt.MapFrom(m => m.Space.Name))
+                .ReverseMap();
+
+                cfg.CreateMap<Space, SpaceDetails>()
+                .ForMember(s => s.Category, opt => opt.MapFrom(m => m.Category.Name))
+                .ForMember(s => s.Owner, opt => opt.MapFrom(m => m.SpaceOwner.FullName))
+                .ReverseMap();
+            });
+
+            _mapper = config.CreateMapper();
+        }
+
         public bool CreateBooking(BookingCreate model)
         {
             var newBooking = new Booking
@@ -60,7 +84,10 @@ namespace SpacePlace.Services
             {
                 using(var ctx = new ApplicationDbContext())
                 {
-                    var foundBooking = ctx.Bookings.Where(b => b.Id == id)
+                    var foundBooking = ctx.Bookings
+                        .Where(b => b.Id == id)
+                        .Include(b => b.Space)
+                        .Include(sA => sA.Space.SpaceAmenities)
                         .FirstOrDefault();
 
                     return (foundBooking != null) ?
@@ -68,7 +95,7 @@ namespace SpacePlace.Services
                         {
                             Id = foundBooking.Id,
                             SpaceId = foundBooking.SpaceId,
-                            Space = foundBooking.Space.Name,
+                            Space = _mapper.Map<SpaceDetails>(foundBooking.Space),
                             RenterId = foundBooking.RenterId,
                             Renter = foundBooking.Renter.RenterUser.FullName,
                             BookingDate = foundBooking.BookingDate,
