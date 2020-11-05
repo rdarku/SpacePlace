@@ -49,8 +49,16 @@ namespace SpacePlace.Services
             {
                 using(var ctx = new ApplicationDbContext())
                 {
+                    var space = ctx.Spaces
+                        .Where(s => s.Id == model.SpaceId && s.Status == "vacant")
+                        .FirstOrDefault();
+                    if (space == null) return false;
+
                     ctx.Bookings.Add(newBooking);
-                    return ctx.SaveChanges() == 1;
+                    space.Status = "booked";
+
+                    return ctx.SaveChanges() == 2;
+                    
                 }
             }
             catch(Exception e)
@@ -88,6 +96,7 @@ namespace SpacePlace.Services
                         .Where(b => b.Id == id)
                         .Include(b => b.Space)
                         .Include(sA => sA.Space.SpaceAmenities)
+                        .Include(s => s.Space.Ratings)
                         .FirstOrDefault();
 
                     return (foundBooking != null) ?
