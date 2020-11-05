@@ -32,6 +32,7 @@ Framework, plug ins etc.
 * [Sentry.IO](https://sentry.io)      Exception handling to use within the application
 * [Swagger Client Interface](https://swagger.com)  
 * [Swagger API](https://swagger.com)  API testing and development
+* [AutoMapper](https://docs.automapper.org/en/stable/index.html)  A convention-based object-object mapper.
 * [GitHub](https://github.com)        Team hub to work on the project together  
 * [Trello](https://trello.com)        Team communication, Use cases, stories, cards, etc.
 * [Visual Studio](https://visualstudio.com)  
