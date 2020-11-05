@@ -42,11 +42,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	  <Compile Include="Categories\CategoryCreate.cs" />
-	  <Compile Include="Amenities\AmenityCreate.cs" />
-	  <Compile Include="Renters\RenterCreate.cs" />
+    <Compile Include="Amenities\AmenityEdit.cs" />
+    <Compile Include="Bookings\BookingCreate.cs" />
+    <Compile Include="Bookings\BookingDetails.cs" />
+    <Compile Include="Bookings\BookingEdit.cs" />
+    <Compile Include="Bookings\BookingListItem.cs" />
+    <Compile Include="Categories\CategoryEdit.cs" />
+    <Compile Include="Categories\CategoryListItem.cs" />
+    <Compile Include="Amenities\AmenityListItem.cs" />
+    <Compile Include="Categories\CategoryCreate.cs" />
+    <Compile Include="Amenities\AmenityCreate.cs" />
+    <Compile Include="Ratings\RatingCreate.cs" />
+    <Compile Include="Ratings\RatingDetails.cs" />
+    <Compile Include="Ratings\RatingListItem.cs" />
+    <Compile Include="Ratings\RatingSearchParams.cs" />
+    <Compile Include="Renters\RenterCreate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renters\RenterListItem.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityCreate.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityDetails.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityEdit.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenityListItem.cs" />
+    <Compile Include="SpaceAmenities\SpaceAmenitySearchParams.cs" />
     <Compile Include="SpaceOwners\SpaceOwnerCreate.cs" />
+    <Compile Include="SpaceOwners\SpaceOwnerListItem.cs" />
+    <Compile Include="Spaces\SpaceCreate.cs" />
+    <Compile Include="Spaces\SpaceDetails.cs" />
+    <Compile Include="Spaces\SpaceEdit.cs" />
+    <Compile Include="Spaces\SpaceListItem.cs" />
+    <Compile Include="Spaces\SpaceSearchParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpacePlace.Data\SpacePlace.Data.csproj">

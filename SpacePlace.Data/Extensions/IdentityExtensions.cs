@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Data.Extensions
 {
@@ -27,21 +22,9 @@ namespace SpacePlace.Data.Extensions
 
         public static int GetAge(this IIdentity identity)
         {
-            var claim = ((ClaimsIdentity)identity).FindFirst("DOB");
+            var claim = ((ClaimsIdentity)identity).FindFirst("Age");
             // Test for null to avoid issues during local testing
-            var dob = GetDOB(identity);
-
-            if (dob == new DateTime())
-            {
-                return 0;
-            }
-
-            DateTime DOB = Convert.ToDateTime(dob);
-
-            TimeSpan ageSpan = DateTime.Now - DOB;
-            double totalAgeInYears = ageSpan.TotalDays / 365.25;
-            int yearsOfAge = Convert.ToInt32(Math.Floor(totalAgeInYears));
-            return yearsOfAge;
+            return (claim != null) ? Convert.ToInt32(claim.Value) : 0;
         }
     }
 }

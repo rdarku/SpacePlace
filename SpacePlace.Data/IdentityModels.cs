@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -55,9 +56,28 @@ namespace SpacePlace.Data
 
         public DbSet<Renter> Renters { get; set; }
 
+        public DbSet<Space> Spaces { get; set; }
+
+        public DbSet<SpaceAmenity> SpaceAmenities { get; set; }
+
+        public DbSet<Booking> Bookings { get; set; }
+
+
+        public DbSet<Rating> Ratings { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Space>()
+                .HasRequired(c => c.SpaceOwner)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

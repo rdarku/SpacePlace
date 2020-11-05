@@ -1,16 +1,15 @@
-﻿using SpacePlace.Data;
+﻿using Sentry;
+using SpacePlace.Data;
 using SpacePlace.Models.SpaceOwner;
+using SpacePlace.Models.SpaceOwners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class SpaceOwnerService
     {
-        //create
         public bool CreateSpaceOwner(SpaceOwnerCreate model)
         {
             var newSpaceOwner = new SpaceOwner()
@@ -29,16 +28,40 @@ namespace SpacePlace.Services
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e);
                 return false;
             }
         }
 
-        //read all
-
-        //read by ID
-
-        //update
+        public IEnumerable<SpaceOwnerListItem> GetAllOwners()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return ctx.SpaceOwners
+                    .Select(o => new SpaceOwnerListItem
+                    {
+                        Id = o.Id,
+                        SpaceOwner = o.Owner.FullName,
+                        CreatedAt = o.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
+        public SpaceOwnerListItem GetOwnerById(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                return ctx.SpaceOwners
+                    .Where(r => r.Id == id)
+                    .Select(r => new SpaceOwnerListItem()
+                        {
+                        Id = r.Id,
+                        SpaceOwner = r.Owner.FullName,
+                        CreatedAt = r.CreatedAt
+                    })
+                    .FirstOrDefault();
+            }
+        }
 
     }
 }

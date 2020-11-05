@@ -1,16 +1,14 @@
-﻿using SpacePlace.Data;
-using SpacePlace.Models;
+﻿using Sentry;
+using SpacePlace.Data;
+using SpacePlace.Models.Renters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacePlace.Services
 {
     public class RenterService
     {
-        //create
         public bool CreateRenter(RenterCreate model)
         {
             var newrenter = new Renter()
@@ -29,19 +27,47 @@ namespace SpacePlace.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                SentrySdk.CaptureException(e); ;
                 return false;
             }
-
         }
 
-        //read all
+        public IEnumerable<RenterListItem> GetAllRenters()
+        {
+            using (var ctx = new ApplicationDbContext())
+            { 
+                return ctx.Renters
+                    .Select(c => new RenterListItem
+                    {
+                        Id = c.Id,
+                        Renter = c.RenterUser.FullName,
+                        CreatedAt = c.CreatedAt
+                    }
+                    ).ToList();
+            }
+        }
 
-        //read by id
-
-        //update
-
-        //delete
-
+        public RenterListItem GetRenterById(int id)
+        {
+            try
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    return ctx.Renters
+                        .Where(r => r.Id == id)
+                        .Select( r => new RenterListItem()
+                        {
+                            Id = r.Id,
+                            Renter = r.RenterUser.FullName,
+                            CreatedAt = r.CreatedAt
+                        }).FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                SentrySdk.CaptureException(e);
+                return null;
+            }
+        }
     }
 }
